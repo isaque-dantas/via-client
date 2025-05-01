@@ -1,1 +1,48 @@
-<p>register works!</p>
+<main class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="max-w-lg flex flex-col gap-4 mx-auto border-secondary border-2 rounded-md p-6">
+      <h1 class="text-4xl text-secondary font-medium mb-4 text-center">Registro</h1>
+
+      <div class="flex flex-col">
+        <label for="name" class="font-medium">Nome</label>
+        <input formControlName="name" id="name" type="text" placeholder="Insira seu nome aqui"
+               class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
+        @if (form.controls.name.dirty && form.controls.name.getError('required')) {
+          <span class="text-red-800 font-medium">Este campo é obrigatório.</span>
+        }
+      </div>
+
+      <div class="flex flex-col">
+        <label for="email" class="font-medium">E-mail</label>
+        <input formControlName="email" id="email" type="email" placeholder="Insira seu e-mail aqui"
+               class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
+        <span class="text-red-800 font-medium">
+          @if (form.controls.email.dirty && form.controls.email.getError('required')) {
+            Este campo é obrigatório.
+          } @else if (form.controls.email.dirty && form.controls.email.getError('email')) {
+            O e-mail não tem um formato válido.
+          }
+        </span>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="password" class="font-medium">Senha</label>
+        <input formControlName="password" id="password" type="password" placeholder="Insira sua senha aqui"
+               class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
+        <span class="text-red-800 font-medium">
+          @if (form.controls.password.dirty && form.controls.password.getError('required')) {
+            Este campo é obrigatório.
+          } @else if (form.controls.password.dirty && form.controls.password.getError('minlength')) {
+            A senha tem {{ form.controls.password.getError('minlength').actualLength }} caracteres, mas
+              deveria ter pelo menos {{ form.controls.password.getError('minlength').requiredLength }}.
+          }
+        </span>
+      </div>
+
+      <button type="submit"
+              class="border-primary border-2 text-primary text-xl font-bold rounded-sm px-2 py-1 mt-8 cursor-pointer hover:bg-primary hover:text-white transition-all">
+        Enviar
+      </button>
+    </div>
+  </form>
+</main>

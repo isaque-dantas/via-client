@@ -1,17 +1,29 @@
 <header class="container py-4 flex justify-between mb-8">
-  <img ngSrc="/logo.png" alt="" height="48" width="102">
+  <a routerLink="dashboard"><img ngSrc="/logo.png" alt="" height="48" width="102" priority></a>
 
-  <nav class="flex items-center">
-    <ul class="flex gap-8">
-      <li><a class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md" routerLink="dashboard">Dashboard</a></li>
-      <li><a class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md" routerLink="customers">Clientes</a></li>
-      <li><a class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md" routerLink="orders">Pedidos</a></li>
-      <li><a class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md" routerLink="products">Produtos</a></li>
-    </ul>
-  </nav>
+  <div class="flex gap-16">
+    <nav class="flex items-center">
+      <ul class="flex gap-8">
+        <li><a
+          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
+          routerLink="dashboard">Dashboard</a></li>
+        <li><a
+          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
+          routerLink="customers">Clientes</a></li>
+        <li><a
+          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
+          routerLink="orders">Pedidos</a></li>
+        <li><a
+          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
+          routerLink="products">Produtos</a></li>
+      </ul>
+    </nav>
 
-  <div class="flex gap-4 items-center">
-    <a routerLink="login" class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Login</a>
-    <a routerLink="register" class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Registre-se</a>
+    <div class="flex gap-4 items-center">
+      <a routerLink="login"
+         class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Login</a>
+      <a routerLink="register"
+         class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Registre-se</a>
+    </div>
   </div>
 </header>
