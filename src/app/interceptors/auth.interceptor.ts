@@ -6,7 +6,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService)
 
   if (!authService.isAuthenticated()) {
-    console.log("Not authenticated!!!")
     return next(req)
   }
 
