@@ -17,8 +17,8 @@ export class ProductService {
     return this.http.post<Product>(`${baseApiUrl}/product`, product)
   }
 
-  edit(productId: number, newProductData: Product) {
-    return this.http.put<Product>(`${baseApiUrl}/product/${productId}`, newProductData)
+  edit(productId: number, editedProduct: Product) {
+    return this.http.put<Product>(`${baseApiUrl}/product/${productId}`, editedProduct)
   }
 
   delete(productId: number) {

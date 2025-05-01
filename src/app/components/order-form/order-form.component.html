@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="flex flex-col gap-6 items-start border-2 border-primary w-fit rounded-lg p-4">
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label class="text-sm" for="name">Nome</label>
+        <input formControlName="name" id="name" type="text" class="px-2 border-1 border-black rounded-md">
+        @if (form.controls.name.dirty) {
+          @if (form.controls.name.dirty && form.controls.name.getError('required')) {
+            <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
+          } @else if (form.controls.name.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">O nome pode ter, no máximo,
+              {{ form.controls.name.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.name.getError('maxlength').actualLength }}).</span>
+          }
+        }
+      </div>
+
+      <div class="flex flex-col max-w-[240px]">
+        <label class="text-sm" for="price">Preço</label>
+        <input formControlName="price" id="price" type="text" class="px-2 border-1 border-black rounded-md">
+        @if (form.controls.price.dirty) {
+          @if (form.controls.price.getError('required')) {
+            <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
+          } @else if (form.controls.price.getError('max')) {
+            <span class="mt-1 text-red-700 text-sm">O preço pode ter o valor máximo de
+              {{ form.controls.price.getError('max').max }}.</span>
+          }
+        }
+      </div>
+
+      <div class="flex flex-col col-span-2">
+        <label class="text-sm" for="description">Descrição</label>
+        <textarea formControlName="description" id="description" type="text" class="p-2 border-1 border-black rounded-md"></textarea>
+        @if (form.controls.description.dirty) {
+          @if (form.controls.description.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">A descrição pode ter, no máximo,
+              {{ form.controls.description.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.description.getError('maxlength').actualLength }}).</span>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      @if (mode === "edit") {
+        <button
+          (click)="setCreationMode()"
+          type="button"
+          [class]="
+          'font-semibold border-2 rounded-sm px-4 transition-all ' +
+          'border-gray-500 text-gray-500 cursor-pointer ' +
+          'hover:bg-gray-500 hover:text-white'">
+          Cancelar
+        </button>
+      }
+
+<!--        [disabled]="form.invalid"-->
+      <button
+        type="submit"
+        [class]="
+        'font-semibold border-2 rounded-sm px-4 transition-all ' +
+        'disabled:border-gray-500 disabled:text-gray-500 disabled:cursor-not-allowed ' +
+        'not-disabled:border-primary not-disabled:text-primary not-disabled:cursor-pointer ' +
+        'not-disabled:hover:bg-primary not-disabled:hover:text-white'">
+        Enviar
+      </button>
+    </div>
+  </div>
+</form>
