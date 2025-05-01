@@ -5,12 +5,10 @@ import {TokenResponse} from '../interfaces/token-response';
     providedIn: 'root'
 })
 export class AuthService {
-    private readonly accessTokenKey: string = 'access'
-
     login(responseBody: TokenResponse) {
         if (responseBody.access === undefined) return;
 
-        localStorage.setItem(this.accessTokenKey, responseBody.access)
+        localStorage.setItem('access', responseBody.access)
     }
 
     isAuthenticated(): boolean {
@@ -20,7 +18,7 @@ export class AuthService {
     isAccessTokenExpired(): boolean {
         if (!this.doesAccessTokenExist()) return true
 
-        const token: string = localStorage.getItem(this.accessTokenKey)!
+        const token: string = localStorage.getItem('access')!
         const encodedTokenPayload = token.split('.')[1]
         const decodedTokenPayload = JSON.parse(atob(encodedTokenPayload))
         const exp = decodedTokenPayload.exp
@@ -34,12 +32,12 @@ export class AuthService {
     }
 
     doesAccessTokenExist() {
-        return !!localStorage.getItem(this.accessTokenKey);
+        return !!localStorage.getItem('access');
     }
 
     getToken(): string | null {
         if (!this.isAuthenticated()) return null
 
-        return "Bearer " + localStorage.getItem(this.accessTokenKey);
+        return "Bearer " + localStorage.getItem('access');
     }
 }
