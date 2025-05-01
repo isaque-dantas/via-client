@@ -29,7 +29,7 @@ export class CustomerFormComponent implements OnInit {
 
   @Input() editModeEmitter!: EventEmitter<Customer>
   customerBeingEdited!: Customer | null
-  mode!: "create" | "edit"
+  mode: "create" | "edit" = "create"
 
   ngOnInit() {
     this.editModeEmitter!.subscribe((customer) => {
@@ -57,7 +57,7 @@ export class CustomerFormComponent implements OnInit {
         this.newCustomerAdded.emit(customer)
         this.form.reset()
       },
-      error: this.handleError,
+      error: (response: HttpErrorResponse) => this.handleError(response),
     })
   }
 

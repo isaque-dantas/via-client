@@ -4,7 +4,7 @@
     <div class="flex gap-4">
       <div class="flex flex-col">
         <label class="text-sm" for="name">Nome</label>
-        <input formControlName="name" id="name" type="text" class="px-2 border-2 border-black rounded-md">
+        <input formControlName="name" id="name" type="text" class="px-2 border-1 border-black rounded-md">
         @if (form.controls.name.dirty) {
           @if (form.controls.name.dirty && form.controls.name.getError('required')) {
             <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
@@ -18,8 +18,8 @@
 
       <div class="flex flex-col">
         <label class="text-sm" for="email">E-mail</label>
-        <input formControlName="email" id="email" type="email" class="px-2 border-2 border-black rounded-md">
-        @if (form.controls.name.dirty) {
+        <input formControlName="email" id="email" type="email" class="px-2 border-1 border-black rounded-md">
+        @if (form.controls.email.dirty) {
           @if (form.controls.email.getError('required')) {
             <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
           } @else if (form.controls.email.getError('email')) {
