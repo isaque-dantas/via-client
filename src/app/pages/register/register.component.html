@@ -6,9 +6,15 @@
       <div class="flex flex-col">
         <label for="name" class="font-medium">Nome</label>
         <input formControlName="name" id="name" type="text" placeholder="Insira seu nome aqui"
-               class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
-        @if (form.controls.name.dirty && form.controls.name.getError('required')) {
-          <span class="text-red-800 font-medium">Este campo é obrigatório.</span>
+               class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400" [maxlength]="128">
+        @if (form.controls.name.dirty) {
+          @if (form.controls.name.getError('required')) {
+            <span class="text-red-700 font-medium">Este campo é obrigatório.</span>
+          } @else if (form.controls.name.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">O nome pode ter, no máximo,
+              {{ form.controls.name.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.name.getError('maxlength').actualLength }}).</span>
+          }
         }
       </div>
 
@@ -16,12 +22,18 @@
         <label for="email" class="font-medium">E-mail</label>
         <input formControlName="email" id="email" type="email" placeholder="Insira seu e-mail aqui"
                class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
-        <span class="text-red-800 font-medium">
-          @if (form.controls.email.dirty && form.controls.email.getError('required')) {
+        <span class="text-red-700 font-medium">
+        @if (form.controls.email.dirty) {
+          @if (form.controls.email.getError('required')) {
             Este campo é obrigatório.
-          } @else if (form.controls.email.dirty && form.controls.email.getError('email')) {
+          } @else if (form.controls.email.getError('email')) {
             O e-mail não tem um formato válido.
+          } @else if (form.controls.email.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">O e-mail pode ter, no máximo,
+              {{ form.controls.email.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.email.getError('maxlength').actualLength }}).</span>
           }
+        }
         </span>
       </div>
 
@@ -29,14 +41,22 @@
         <label for="password" class="font-medium">Senha</label>
         <input formControlName="password" id="password" type="password" placeholder="Insira sua senha aqui"
                class="px-2 py-1 border-black border-1 rounded-sm placeholder:text-gray-400">
-        <span class="text-red-800 font-medium">
-          @if (form.controls.password.dirty && form.controls.password.getError('required')) {
-            Este campo é obrigatório.
-          } @else if (form.controls.password.dirty && form.controls.password.getError('minlength')) {
-            A senha tem {{ form.controls.password.getError('minlength').actualLength }} caracteres, mas
+        @if (form.controls.password.dirty) {
+          @if (form.controls.password.getError('required')) {
+            <span class="text-red-700 font-medium">Este campo é obrigatório.</span>
+          } @else if (form.controls.password.getError('minlength')) {
+            <span class="text-red-700 font-medium">
+              A senha tem {{ form.controls.password.getError('minlength').actualLength }} caracteres, mas
               deveria ter pelo menos {{ form.controls.password.getError('minlength').requiredLength }}.
+            </span>
+          } @else if (form.controls.password.getError('maxlength')) {
+            <span class="text-red-700 font-medium">
+              A senha pode ter, no máximo,
+              {{ form.controls.password.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.password.getError('maxlength').actualLength }}).
+            </span>
           }
-        </span>
+        }
       </div>
 
       <button type="submit"

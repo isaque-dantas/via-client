@@ -20,9 +20,9 @@ export class RegisterComponent {
   fb = inject(FormBuilder)
   form = this.fb.group(
     {
-      name: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      name: ['', [Validators.required, Validators.maxLength(128)]],
+      email: ['', [Validators.required, Validators.email], Validators.maxLength(254)],
+      password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]],
     }
   )
 
