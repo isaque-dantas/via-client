@@ -31,7 +31,7 @@ export class CustomerListComponent implements OnInit {
     })
   }
 
-  addNewCustomer(customer: Customer) {
+  addNew(customer: Customer) {
     this.customers.push(customer)
   }
 
@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
     this.formTitle = `Editar cliente #${customer.id}`
   }
 
-  editCustomer(editedCustomer: Customer) {
+  edit(editedCustomer: Customer) {
     this.customers = this.customers.map((c: Customer) => {
       if (c.id !== editedCustomer.id) return c
       return editedCustomer
