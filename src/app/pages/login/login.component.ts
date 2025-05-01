@@ -40,7 +40,14 @@ export class LoginComponent {
           this.alertService.success('O login foi realizado com sucesso!')
           this.router.navigateByUrl('dashboard')
         },
-        error: (error: HttpErrorResponse) => this.alertService.error(error.message),
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            this.alertService.error('E-mail e/ou senha incorreto(s).')
+            return;
+          }
+
+          this.alertService.error(error.message)
+        },
       }
     )
   }
