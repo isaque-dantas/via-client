@@ -3,8 +3,8 @@
 @theme {
   --font-sans: "Raleway", sans-serif;
   --color-white: #F8FDFF;
-  --color-primary: #1D84B5;
-  --color-secondary: #1D84B5;
+  --color-primary: #0E5E84;
+  --color-secondary: #FC9F5B;
   --color-black: #242325;
 }
 
@@ -14,5 +14,5 @@ body {
 }
 
 .container {
-  @apply mx-20;
+  @apply mx-auto;
 }
