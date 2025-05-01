@@ -19,11 +19,14 @@ export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [loggedOnlyGuard]},
 
   {path: 'customers', component: CustomerListComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'customers/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
 
-  {path: 'order', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'orders', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
   {path: 'order/:id', component: OrderDetailComponent, canActivate: [loggedOnlyGuard]},
 
-  {path: 'product', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'products', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
   {path: 'product/:id', component: ProductDetailComponent, canActivate: [loggedOnlyGuard]},
+
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '**', component: DashboardComponent},
 ];
