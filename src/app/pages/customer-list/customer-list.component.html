@@ -1,1 +1,40 @@
-<p>customer-list works!</p>
+<main class="container flex flex-col">
+
+  <div>
+    <h3 class="text-primary font-medium text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
+    <app-customer-form
+      (newCustomerAdded)="addNewCustomer($event)"
+      (customerEdited)="editCustomer($event)"
+      (creationModeSet)="setCreationMode()"
+      [editModeEmitter]="editModeEmitter"/>
+  </div>
+
+  <h3 class="text-primary font-semibold text-3xl mt-16 mb-6">Clientes</h3>
+
+  @if (finishedFirstLoading) {
+    @if (customers.length == 0) {
+      <p>Não há clientes registrados.</p>
+    } @else {
+      <ul class="grid gap-6 grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
+        @for (customer of customers; track customer.id) {
+          <li class="border-2 border-primary p-4 flex rounded-md justify-between">
+            <div class="flex flex-col">
+              <div class="flex justify-between">
+                <h5 class="text-xl font-medium">{{ customer.name }}</h5>
+              </div>
+              <div class="flex gap-2 items-center">
+                <span class="text-sm">E-mail</span>
+                <span class="border-1 border-l border-primary"></span>
+                <span class="font-medium">{{ customer.email }}</span>
+              </div>
+            </div>
+              <div class="flex flex-col gap-2 pl-2 items-center">
+                  <button type="button" (click)="setEditModeToId(customer.id)" class="material-symbols-outlined text-[20px]! cursor-pointer">edit</button>
+                  <button type="button" (click)="delete(customer.id)" class="material-symbols-outlined text-[20px]! cursor-pointer">delete</button>
+              </div>
+          </li>
+        }
+      </ul>
+    }
+  }
+</main>

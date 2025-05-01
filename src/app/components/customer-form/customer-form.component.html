@@ -1,0 +1,61 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="flex flex-col gap-6 items-start border-2 border-primary w-fit rounded-lg p-4">
+
+    <div class="flex gap-4">
+      <div class="flex flex-col">
+        <label class="text-sm" for="name">Nome</label>
+        <input formControlName="name" id="name" type="text" class="px-2 border-2 border-black rounded-md">
+        @if (form.controls.name.dirty) {
+          @if (form.controls.name.dirty && form.controls.name.getError('required')) {
+            <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
+          } @else if (form.controls.name.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">O nome pode ter, no máximo,
+              {{ form.controls.name.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.name.getError('maxlength').actualLength }}).</span>
+          }
+        }
+      </div>
+
+      <div class="flex flex-col">
+        <label class="text-sm" for="email">E-mail</label>
+        <input formControlName="email" id="email" type="email" class="px-2 border-2 border-black rounded-md">
+        @if (form.controls.name.dirty) {
+          @if (form.controls.email.getError('required')) {
+            <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
+          } @else if (form.controls.email.getError('email')) {
+            <span class="mt-1 text-red-700 text-sm">O e-mail é inválido.</span>
+          } @else if (form.controls.email.getError('maxlength')) {
+            <span class="mt-1 text-red-700 text-sm">O e-mail pode ter, no máximo,
+              {{ form.controls.email.getError('maxlength').requiredLength }} caracteres
+              (no momento, tem {{ form.controls.email.getError('maxlength').actualLength }}).</span>
+          }
+        }
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      @if (mode === "edit") {
+        <button
+          (click)="setCreationMode()"
+          type="button"
+          [class]="
+          'font-semibold border-2 rounded-sm px-4 transition-all ' +
+          'border-gray-500 text-gray-500 cursor-pointer ' +
+          'hover:bg-gray-500 hover:text-white'">
+          Cancelar
+        </button>
+      }
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        [class]="
+        'font-semibold border-2 rounded-sm px-4 transition-all ' +
+        'disabled:border-gray-500 disabled:text-gray-500 disabled:cursor-not-allowed ' +
+        'not-disabled:border-primary not-disabled:text-primary not-disabled:cursor-pointer ' +
+        'not-disabled:hover:bg-primary not-disabled:hover:text-white'">
+        Enviar
+      </button>
+    </div>
+  </div>
+</form>
