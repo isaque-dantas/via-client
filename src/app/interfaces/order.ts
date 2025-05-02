@@ -1,12 +1,21 @@
 import {OrderProduct} from './order-product';
+import {Customer} from './customer';
+import {Product} from './product';
+import {Employee} from './employee';
 
-export interface Order {
+export interface OrderToSend {
   id: number;
   customerId: number;
   products: OrderProduct[];
+  description?: string;
 }
 
-// {
-//   'customer': customer.id,
-//   'products': [{'id': product_1.id, 'quantity': 2}, {'id': product_2.id, 'quantity': 3}]
-// }
+export interface Order {
+  id: number;
+  customer: Customer;
+  employee: Employee;
+  products: Product[];
+  status: string;
+  description?: string;
+  date: string;
+}

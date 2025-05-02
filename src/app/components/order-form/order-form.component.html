@@ -1,43 +1,121 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="flex flex-col gap-6 items-start border-2 border-primary w-fit rounded-lg p-4">
 
-    <div class="grid grid-cols-2 gap-4">
-      <div class="flex flex-col">
-        <label class="text-sm" for="name">Nome</label>
-        <input formControlName="name" id="name" type="text" class="px-2 border-1 border-black rounded-md">
-        @if (form.controls.name.dirty) {
-          @if (form.controls.name.dirty && form.controls.name.getError('required')) {
+    <div class="flex flex-col gap-10">
+      @if (customers) {
+        <div class="flex flex-col">
+          <label class="text-primary text-lg font-semibold" for="customer">Cliente</label>
+          <select formControlName="customer" id="customer" type="text"
+                  class="px-2 py-1 border-1 border-black rounded-md">
+            @for (customer of customers; track customer.id) {
+              <option [value]="customer.id">{{ customer.name }}</option>
+            }
+          </select>
+          @if (alreadyClickedSubmitButton && form.controls.customer.getError('required')) {
             <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
-          } @else if (form.controls.name.getError('maxlength')) {
-            <span class="mt-1 text-red-700 text-sm">O nome pode ter, no máximo,
-              {{ form.controls.name.getError('maxlength').requiredLength }} caracteres
-              (no momento, tem {{ form.controls.name.getError('maxlength').actualLength }}).</span>
           }
-        }
-      </div>
+        </div>
+      } @else {
+        <p>Carregando clientes...</p>
+      }
 
-      <div class="flex flex-col max-w-[240px]">
-        <label class="text-sm" for="price">Preço</label>
-        <input formControlName="price" id="price" type="text" class="px-2 border-1 border-black rounded-md">
-        @if (form.controls.price.dirty) {
-          @if (form.controls.price.getError('required')) {
+      <span class="border-b-1 border-gray-300"></span>
+
+      @if (products) {
+        <div formArrayName="products" class="flex flex-col gap-4 max-w-[480px]">
+          <div class="flex gap-2 items-center">
+            <h5 class="text-primary text-lg font-semibold">Produtos</h5>
+            <button
+              (click)="addProduct()"
+              type="button"
+              [class]="
+                'rounded-sm transition-all border-1 h-fit material-symbols-outlined text-lg! leading-none p-0.5 ' +
+                'cursor-pointer border-primary text-primary hover:bg-primary hover:text-white'">
+              add
+            </button>
+          </div>
+          @for (productForm of productsArray.controls; let i = $index; track i) {
+            <div class="flex flex-col">
+              <div class="flex gap-4 items-end" [formArrayName]="i">
+                <div class="flex flex-col">
+                  <label class="text-sm" for="id">Produto</label>
+                  <select
+                    formControlName="id"
+                    id="id"
+                    type="text"
+                    [value]="productForm.get('id')!.value"
+                    class="px-2 py-1 h-[32px] border-1 border-black rounded-md"
+                  >
+                    @for (product of products; track product.id) {
+                      <option [value]="product.id">{{ product.name }}</option>
+                    }
+                  </select>
+                </div>
+                <div class="flex flex-col  max-w-[80px]">
+                  <label class="text-sm" for="quantity">Quantidade</label>
+                  <input
+                    formControlName="quantity"
+                    [value]="productForm.get('quantity')!.value"
+                    id="quantity"
+                    type="number"
+                    class="px-2 h-[32px] border-1 border-black rounded-md">
+                </div>
+                <button
+                  (click)="removeProduct(i)"
+                  [disabled]="productsArray.length <= 1"
+                  type="button"
+                  [class]="
+                            'material-symbols-outlined px-1 rounded-sm text-xl! transition-all border-1 ' +
+                            'disabled:cursor-not-allowed disabled:border-gray-500 disabled:text-gray-500 ' +
+                            'not-disabled:cursor-pointer not-disabled:border-primary not-disabled:text-primary ' +
+                            'not-disabled:hover:bg-primary not-disabled:hover:text-white '">
+                  delete
+                </button>
+              </div>
+              <div class="flex flex-col">
+                @if (alreadyClickedSubmitButton && productForm.get('id')!.getError('required')) {
+                  <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
+                }
+                @if ((alreadyClickedSubmitButton || productForm.get('quantity')!.dirty) && productForm.get('quantity')!.getError('max')) {
+                  <span class="mt-1 text-red-700 text-sm">A quantidade máxima é de
+                    {{ productForm.get('quantity')!.getError('max').max }}.</span>
+                }
+              </div>
+            </div>
+          }
+          @if (productsArray.getError('notUniqueProductIds')) {
+            <span
+              class="mt-1 text-red-700 text-sm">O mesmo produto não pode ser inserido mais de uma vez
+              ({{ getProductsNamesByIds(productsArray.getError('notUniqueProductIds')) }}).
+            </span>
+          }
+        </div>
+      } @else {
+        <p>Carregando produtos...</p>
+      }
+
+      <span class="border-b-1 border-gray-300"></span>
+
+      <div class="flex flex-col col-span-2">
+        <label class="text-sm" for="date">Data</label>
+        <input formControlName="date" id="date" type="date" class="p-2 border-1 border-black rounded-md">
+        @if (alreadyClickedSubmitButton || form.controls.date.dirty) {
+          @if (form.controls.date.getError('required')) {
             <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
-          } @else if (form.controls.price.getError('max')) {
-            <span class="mt-1 text-red-700 text-sm">O preço pode ter o valor máximo de
-              {{ form.controls.price.getError('max').max }}.</span>
+          } @else if (form.controls.date.getError('dateIsPastThanToday')) {
+            <span class="mt-1 text-red-700 text-sm">A data não pode ser posterior ao dia atual.</span>
           }
         }
       </div>
 
       <div class="flex flex-col col-span-2">
         <label class="text-sm" for="description">Descrição</label>
-        <textarea formControlName="description" id="description" type="text" class="p-2 border-1 border-black rounded-md"></textarea>
-        @if (form.controls.description.dirty) {
-          @if (form.controls.description.getError('maxlength')) {
-            <span class="mt-1 text-red-700 text-sm">A descrição pode ter, no máximo,
-              {{ form.controls.description.getError('maxlength').requiredLength }} caracteres
+        <textarea formControlName="description" id="description" type="text"
+                  class="p-2 border-1 border-black rounded-md"></textarea>
+        @if (form.controls.description.dirty && form.controls.description.getError('maxlength')) {
+          <span class="mt-1 text-red-700 text-sm">A descrição pode ter, no máximo,
+            {{ form.controls.description.getError('maxlength').requiredLength }} caracteres
               (no momento, tem {{ form.controls.description.getError('maxlength').actualLength }}).</span>
-          }
         }
       </div>
     </div>
@@ -55,16 +133,15 @@
         </button>
       }
 
-<!--        [disabled]="form.invalid"-->
-      <button
-        type="submit"
-        [class]="
-        'font-semibold border-2 rounded-sm px-4 transition-all ' +
-        'disabled:border-gray-500 disabled:text-gray-500 disabled:cursor-not-allowed ' +
-        'not-disabled:border-primary not-disabled:text-primary not-disabled:cursor-pointer ' +
-        'not-disabled:hover:bg-primary not-disabled:hover:text-white'">
-        Enviar
-      </button>
+      <div class="w-fit" [class.cursor-not-allowed]="form.invalid" (click)="alreadyClickedSubmitButton = true">
+        <button
+          [class.disabled]="form.invalid"
+          [class.enabled]="form.valid"
+          type="submit"
+          class="font-semibold border-2 rounded-sm px-4 transition-all">
+          Enviar
+        </button>
+      </div>
     </div>
   </div>
 </form>

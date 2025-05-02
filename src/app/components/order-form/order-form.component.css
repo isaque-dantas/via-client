@@ -1,0 +1,9 @@
+@reference '../../../styles.css';
+
+.disabled {
+  @apply border-gray-500 text-gray-500 pointer-events-none cursor-not-allowed;
+}
+
+.enabled {
+  @apply border-primary text-primary cursor-pointer hover:bg-primary hover:text-white;
+}

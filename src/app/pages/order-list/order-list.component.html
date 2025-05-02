@@ -1,3 +1,60 @@
-<main class="container">
-<app-order-form></app-order-form>
+<main class="container pb-20 flex gap-8">
+  <div>
+    <h3 class="text-primary text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
+    <app-order-form
+      (newOrderAdded)="addNew($event)"
+      (orderEdited)="edit($event)"
+      (creationModeSet)="setCreationMode()"
+      [editModeEmitter]="editModeEmitter"
+      [products]="products"
+      [customers]="customers"
+    />
+  </div>
+
+  <div class="w-full">
+    <h3 class="text-primary font-semibold text-3xl mt-16 mb-6">Pedidos</h3>
+
+    @if (finishedFirstLoading) {
+      @if (orders.length == 0) {
+        <p>Não há pedidos registrados.</p>
+      } @else {
+        <ul class="grid gap-6 grid-cols-3 grid-flow-row overflow-x-auto items-start">
+          @for (order of orders; track order.id) {
+            <li class="border-2 border-primary p-4 flex rounded-md justify-between">
+              <div class="flex flex-col gap-2">
+                <h5 class="text-xl font-medium">{{ order.customer.name }}</h5>
+
+                <div class="flex gap-2 items-center">
+                  <span class="text-sm">Data</span>
+                  <span class="border-1 border-l border-primary"></span>
+                  <span class="font-medium">{{ order.date }}</span>
+                </div>
+
+                <div class="flex gap-2 items-center">
+                  <span class="text-sm">Status</span>
+                  <span class="border-1 border-l border-primary"></span>
+                  <span class="font-medium">{{ order.status }}</span>
+                </div>
+
+                @if (order.description) {
+                  <div class="flex flex-col mt-2">
+                    <span class="text-sm">Descrição</span>
+                    <span class="font-medium">{{ order.description }}</span>
+                  </div>
+                }
+              </div>
+              <div class="flex flex-col gap-2 pl-2 items-center">
+                <a routerLink="/order/{{order.id}}" class="material-symbols-outlined">open_in_new</a>
+                <button type="button" (click)="setEditModeToId(order.id)"
+                        class="material-symbols-outlined text-[20px]! cursor-pointer">edit
+                </button>
+                <button type="button" (click)="delete(order.id)"
+                        class="material-symbols-outlined text-[20px]! cursor-pointer">delete
+                </button>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    }</div>
 </main>
