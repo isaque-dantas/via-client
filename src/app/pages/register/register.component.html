@@ -59,8 +59,10 @@
         }
       </div>
 
-      <button type="submit"
-              class="border-primary border-2 text-primary text-xl font-bold rounded-sm px-2 py-1 mt-8 cursor-pointer hover:bg-primary hover:text-white transition-all">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="border-primary border-2 text-primary text-xl font-bold rounded-sm px-2 py-1 mt-8 cursor-pointer hover:bg-primary hover:text-white transition-all">
         Enviar
       </button>
     </div>
