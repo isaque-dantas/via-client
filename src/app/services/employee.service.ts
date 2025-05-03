@@ -26,4 +26,8 @@ export class EmployeeService {
   get(email: string) {
     return this.http.get<Employee>(`${baseApiUrl}/employee/${email}`)
   }
+
+  getLogged() {
+    return this.http.get<Employee>(`${baseApiUrl}/employee`)
+  }
 }

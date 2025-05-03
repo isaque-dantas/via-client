@@ -5,6 +5,7 @@ import {AlertService} from '../../services/alert.service';
 import {LoginData} from '../../interfaces/login-data';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -26,6 +27,7 @@ export class LoginComponent {
 
   employeeService = inject(EmployeeService)
   alertService = inject(AlertService)
+  authService = inject(AuthService)
   router = inject(Router)
 
   onSubmit() {
@@ -38,7 +40,7 @@ export class LoginComponent {
       {
         next: () => {
           this.alertService.success('O login foi realizado com sucesso!')
-          this.router.navigateByUrl('dashboard')
+          this.router.navigateByUrl('dashboard').then(() => this.authService.emitStatusChanged())
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 401) {

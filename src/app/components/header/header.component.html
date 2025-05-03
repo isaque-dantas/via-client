@@ -4,29 +4,36 @@
   <div class="flex gap-16">
     <nav class="flex items-center">
       <ul class="flex gap-8">
-        <li><a
-          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
-          routerLink="home">Início</a></li>
-        <li><a
-          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
-          routerLink="customers">Clientes</a></li>
-        <li><a
-          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
-          routerLink="orders">Pedidos</a></li>
-        <li><a
-          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
-          routerLink="products">Produtos</a></li>
-        <li><a
-          class="underline underline-offset-2 font-semibold text-primary hover:bg-primary hover:text-white transition-all px-2 py-1 rounded-md"
-          routerLink="reports">Relatórios</a></li>
+        @for (item of navItems; track item.link) {
+          <li>
+            <a
+              [class]="'underline underline-offset-2 font-semibold text-primary hover:bg-primary ' +
+                       'hover:text-white transition-all px-2 py-1 rounded-md'"
+              routerLink="{{item.link}}">{{ item.label }}
+            </a>
+          </li>
+        }
       </ul>
     </nav>
 
     <div class="flex gap-4 items-center">
-      <a routerLink="login"
-         class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Login</a>
-      <a routerLink="register"
-         class="px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-all">Fazer cadastro</a>
+      @for (item of actionButtons; track item.link) {
+        <a routerLink="{{item.link}}"
+           [class]="
+           'px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold ' +
+           'hover:bg-primary hover:text-white transition-all'">
+          {{ item.label }}
+        </a>
+      }
+      @if (this.userIsLogged) {
+        <button
+          (click)="authService.logout()"
+          type="button"
+          [class]="'px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold cursor-pointer ' +
+                   'hover:bg-primary hover:text-white transition-all flex items-center gap-2'">
+          <span>Sair</span><span class="material-symbols-outlined">logout</span>
+        </button>
+      }
     </div>
   </div>
 </header>

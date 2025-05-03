@@ -1,43 +1,58 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, inject, Injectable} from '@angular/core';
 import {TokenResponse} from '../interfaces/token-response';
+import {Employee} from '../interfaces/employee';
+import {Router} from '@angular/router';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
-    login(responseBody: TokenResponse) {
-        if (responseBody.access === undefined) return;
+  authStatusChanged = new EventEmitter<void>()
+  router = inject(Router)
 
-        localStorage.setItem('access', responseBody.access)
-    }
+  login(responseBody: TokenResponse) {
+    if (responseBody.access === undefined) return;
 
-    isAuthenticated(): boolean {
-        return this.doesAccessTokenExist() && !this.isAccessTokenExpired()
-    }
+    localStorage.setItem('access', responseBody.access)
+  }
 
-    isAccessTokenExpired(): boolean {
-        if (!this.doesAccessTokenExist()) return true
+  logout() {
+    localStorage.clear()
+    this.emitStatusChanged()
+    this.router.navigateByUrl('/home')
+  }
 
-        const token: string = localStorage.getItem('access')!
-        const encodedTokenPayload = token.split('.')[1]
-        const decodedTokenPayload = JSON.parse(atob(encodedTokenPayload))
-        const exp = decodedTokenPayload.exp
+  emitStatusChanged() {
+    this.authStatusChanged.emit()
+  }
 
-        if (!exp) return true
+  isAuthenticated(): boolean {
+    return this.doesAccessTokenExist() && !this.isAccessTokenExpired()
+  }
 
-        const expirationDate = new Date(exp * 1000).getTime()
-        const currentDate = new Date().getTime()
+  isAccessTokenExpired(): boolean {
+    if (!this.doesAccessTokenExist()) return true
 
-        return currentDate >= expirationDate
-    }
+    const token: string = localStorage.getItem('access')!
+    const encodedTokenPayload = token.split('.')[1]
+    const decodedTokenPayload = JSON.parse(atob(encodedTokenPayload))
+    const exp = decodedTokenPayload.exp
 
-    doesAccessTokenExist() {
-        return !!localStorage.getItem('access');
-    }
+    if (!exp) return true
 
-    getToken(): string | null {
-        if (!this.isAuthenticated()) return null
+    const expirationDate = new Date(exp * 1000).getTime()
+    const currentDate = new Date().getTime()
 
-        return "Bearer " + localStorage.getItem('access');
-    }
+    return currentDate >= expirationDate
+  }
+
+  doesAccessTokenExist() {
+    return !!localStorage.getItem('access');
+  }
+
+  getToken(): string | null {
+    if (!this.isAuthenticated()) return null
+
+    return "Bearer " + localStorage.getItem('access');
+  }
 }
