@@ -5,8 +5,9 @@ import {Employee} from './employee';
 
 export interface OrderToSend {
   id: number;
-  customerId: number;
+  customer: number;
   products: OrderProduct[];
+  date: string;
   description?: string;
 }
 
