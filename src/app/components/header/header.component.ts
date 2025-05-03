@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NavItem} from '../../interfaces/nav-item';
 import {AuthService} from '../../services/auth.service';
 import {EmployeeService} from '../../services/employee.service';
@@ -16,6 +16,7 @@ import {Employee} from '../../interfaces/employee';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  route = inject(ActivatedRoute)
   authService = inject(AuthService)
   employeeService = inject(EmployeeService)
   userIsLogged!: boolean
@@ -29,7 +30,6 @@ export class HeaderComponent implements OnInit {
       {label: 'Ver perfil', link: '/employee'},
     ],
   }
-  actionButtons!: NavItem[]
 
   possibleNavItems: { nonLogged: NavItem[], logged: NavItem[] } = {
     nonLogged: [{label: 'Início', link: '/home'}],
@@ -42,32 +42,40 @@ export class HeaderComponent implements OnInit {
     ],
   }
 
-  navItems!: NavItem[]
+  get navItems(): NavItem[] {
+    return this.userIsLogged ? this.possibleNavItems.logged : this.possibleNavItems.nonLogged
+  }
+
+  get actionButtons(): NavItem[] {
+    return this.userIsLogged ? this.possibleActionButtons.logged : this.possibleActionButtons.nonLogged
+  }
 
   ngOnInit() {
+    this.route.url.subscribe(data => {
+      if (data.length < 1) return;
+      const currentPath = data[0].path
+
+      this.possibleNavItems.nonLogged = this.possibleNavItems.nonLogged.map(item => {
+        return {...item, isActive: item.link.replace('/', '') === currentPath}
+      })
+
+      this.possibleNavItems.logged = this.possibleNavItems.logged.map(item => {
+        return {...item, isActive: item.link.replace('/', '') === currentPath}
+      })
+    })
+
     this.authService.authStatusChanged.subscribe(() => {
-      this.setLinksBasedOnAuthStatus()
+      this.setLinkForLoggedEmployee()
       this.userIsLogged = this.authService.isAuthenticated()
     })
 
-    this.setLinksBasedOnAuthStatus()
+    this.setLinkForLoggedEmployee()
     this.userIsLogged = this.authService.isAuthenticated()
   }
 
-  setLinksBasedOnAuthStatus() {
-    if (this.authService.isAuthenticated()) {
-      this.navItems = this.possibleNavItems.logged
-      this.actionButtons = this.possibleActionButtons.logged
-      this.setLinkForLoggedEmployee()
-
-      return;
-    }
-
-    this.navItems = this.possibleNavItems.nonLogged
-    this.actionButtons = this.possibleActionButtons.nonLogged
-  }
-
   setLinkForLoggedEmployee() {
+    if (!this.authService.isAuthenticated()) return;
+
     return this.employeeService.getLogged().subscribe((data: Employee) => {
       this.possibleActionButtons.logged[0].link = `/employee/${data.email}`
     })

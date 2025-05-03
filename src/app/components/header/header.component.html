@@ -7,10 +7,13 @@
         @for (item of navItems; track item.link) {
           <li>
             <a
-              [class]="'underline underline-offset-2 font-semibold text-primary hover:bg-primary ' +
-                       'hover:text-white transition-all px-2 py-1 rounded-md'"
-              routerLink="{{item.link}}">{{ item.label }}
-            </a>
+              [class]="'font-semibold text-primary hover:bg-primary hover:text-white ' +
+                       'transition-all px-2 py-1 rounded-md'"
+              [class.bg-primary]="item.isActive"
+              [class.text-white]="item.isActive"
+
+              routerLink="{{item.link}}"
+            >{{ item.label }}</a>
           </li>
         }
       </ul>
