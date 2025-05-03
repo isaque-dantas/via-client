@@ -1,0 +1,7 @@
+@reference '../../../styles.css';
+
+.luminosity-effect {
+  @apply absolute z-[-1] w-[320px] h-[400px] rounded-full;
+
+  background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.10) 25%, rgba(var(--color-secondary-rgb), 0) 75%);
+}

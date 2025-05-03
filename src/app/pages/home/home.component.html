@@ -1,0 +1,73 @@
+<main class="container mt-[128px] flex flex-col items-center gap-[200px] pb-40">
+  <div class="mx-auto w-fit relative flex flex-col items-center">
+    <h1
+      class="text-primary px-2 py-4 font-bold text-5xl text-center leading-tight bg-white/50 backdrop-blur-xs max-w-[720px]">
+      Gerencie <span class="underline decoration-secondary">vendas</span> e <span
+      class="underline decoration-secondary">relatórios</span> em um só lugar
+    </h1>
+    <div class="flex gap-8 mt-20">
+      <a routerLink="/login"
+         class="text-xl leading-none cursor-pointer px-8 py-2 border-primary border-2 rounded-md text-primary font-semibold">Login</a>
+      <a routerLink="/register"
+         class="text-xl leading-none cursor-pointer px-8 py-2 bg-primary rounded-md text-white font-bold">Fazer
+        cadastro</a>
+    </div>
+    <img ngSrc="/stonks.svg" alt="" class="absolute left-0 top-0 -translate-y-1/12 z-[-1] scale-[120%]" height="232"
+         width="899">
+  </div>
+
+  <div class="flex flex-col items-center max-w-[800px]">
+    <h3 class="text-primary px-2 py-4 font-bold text-3xl text-center leading-tight flex gap-2 items-center">
+      <span>O que você pode fazer no</span>
+      <img ngSrc="/logo.png" alt="" width="102" height="48" class="max-w-[88px]">
+    </h3>
+    <ul class="flex gap-8 items-center mt-10">
+      <li class="text-center text-xl font-medium p-4 max-w-[224px] border-primary border-2 rounded-md">Gerenciar
+        clientes, produtos e pedidos
+      </li>
+      <li class="text-center text-xl font-medium p-4 max-w-[272px] border-primary border-2 rounded-md">Acompanhar os
+        pedidos de cada cliente
+      </li>
+      <li class="text-center text-xl font-medium p-4 max-w-[200px] border-primary border-2 rounded-md">Gerar relatórios
+        de vendas
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex flex-col gap-10 max-w-[720px] relative">
+    <h3 class="text-primary px-2 py-4 font-bold text-3xl leading-tight">Sobre o autor</h3>
+    <div class="flex gap-6 items-center">
+      <img ngSrc="/foto_perfil_2024.jpg" alt="" width="765" height="765" class="max-w-[200px] rounded-full shadow-xl">
+      <div class="flex flex-col gap-4">
+        <h5 class="text-primary text-2xl leading-tight font-semibold">Isaque Dantas</h5>
+        <p>Desenvolvedor full-stack em formação. Atualmente, cursa na área de desenvolvimento de software. Já trabalhou
+          com Angular, Django REST Framework, TailwindCSS, Bootstrap e outras tecnologias do desenvolvimento web. Sempre
+          pronto para resolver problemas com criatividade e elegância.</p>
+      </div>
+    </div>
+    <ul class="flex justify-between items-center">
+      <a class="h-fit" target="_blank" href="https://github.com/isaque-dantas">
+        <li class="flex gap-2 items-center">
+          <img ngSrc="/github.png" alt="" width="30" height="32">
+          <span class="font-medium">{{ '@isaque-dantas' }}</span>
+        </li>
+      </a>
+      <a class="h-fit" target="_blank" href="https://linkedin.com/in/isaque-victor-404852316">
+        <li class="flex gap-2 items-center">
+          <img ngSrc="/linkedin.png" alt="" width="512" height="512" class="max-w-[32px]">
+          <span class="font-medium">Isaque Victor</span>
+        </li>
+      </a>
+      <a class="h-fit" target="_blank" href="mailto:{{'vicisaque413@gmail.com'}}">
+        <li class="flex gap-2 items-center">
+          <span class="material-symbols-outlined text-3xl!">email</span>
+          <span class="font-medium">{{ 'vicisaque413@gmail.com' }}</span>
+        </li>
+      </a>
+    </ul>
+    <div class="luminosity-effect -bottom-[200px] -left-[100%]"></div>
+  </div>
+
+  <div class="luminosity-effect top-[120px] -left-[80px] rotate-45"></div>
+  <div class="luminosity-effect top-[640px] right-0"></div>
+</main>
