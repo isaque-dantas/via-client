@@ -18,7 +18,14 @@
 
       <div class="flex flex-col max-w-[240px]">
         <label class="text-sm" for="price">Preço</label>
-        <input formControlName="price" id="price" type="text" class="px-2 border-1 border-black rounded-md">
+        <input
+          mask="separator.2"
+          thousandSeparator="."
+          decimalMarker=","
+          formControlName="price"
+          id="price"
+          type="text"
+          class="px-2 border-1 border-black rounded-md">
         @if (form.controls.price.dirty) {
           @if (form.controls.price.getError('required')) {
             <span class="mt-1 text-red-700 text-sm">Este campo é obrigatório.</span>
