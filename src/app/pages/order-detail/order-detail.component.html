@@ -1,1 +1,79 @@
-<p>order-detail works!</p>
+<main class="container pb-20 flex flex-col gap-8">
+  @if (order) {
+    <div class="flex gap-6 items-center">
+      <h1 class="text-primary font-semibold text-4xl leading-none">Pedido #{{ order.id }}</h1>
+
+      <select
+        [value]="order.status"
+        (input)="updateOrderStatus($event)"
+        class="rounded-xl border-1 border-primary text-primary font-medium pl-2 py-0.5 outline-0">
+        <option value="Em andamento">Em andamento</option>
+        <option value="Finalizado">Finalizado</option>
+        <option value="Cancelado">Cancelado</option>
+      </select>
+
+      <p class="rounded-xl border-1 border-primary text-primary px-2 py-0.5">
+        <span>Responsável - </span> <a routerLink="/employee/{{order.employee.email}}"
+                                       class="font-medium underline underline-offset-2">{{ order.employee.name }}</a>
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-2 items-center">
+        <p>Cliente</p>
+        <p class="border-primary border-1"></p>
+        <a routerLink="/customer/{{order.customer.id}}"
+           class="font-medium text-xl underline underline-offset-2">{{ order.customer.name }}</a>
+      </div>
+      <div class="flex gap-2 items-center">
+        <p>Data</p>
+        <p class="border-primary border-1"></p>
+        <p class="font-medium text-xl">{{ order.date | localDate }}</p>
+      </div>
+
+      @if (order.description) {
+        <div class="flex gap-2 items-center">
+          <p>Descrição</p>
+          <p class="border-primary border-1"></p>
+          <p class="font-medium text-xl">{{ order.description }}</p>
+        </div>
+      }
+    </div>
+
+    <div class="mt-8">
+      <h3 class="text-primary font-semibold text-2xl leading-none mb-6">Produtos</h3>
+      <ul class="grid grid-cols-4 gap-8">
+        @for (product of order.products; track product.id) {
+          <li class="border-2 border-primary rounded-md p-4">
+            <a routerLink="/product/{{ product.id }}" class="flex flex-col gap-2">
+              <div class="flex gap-4 items-center">
+                <h5 class="font-medium text-xl">{{ product.name }}</h5>
+                <span class="border-1 border-l border-primary"></span>
+                <span class="text-primary font-medium">{{ product.quantity }} <span class="text-sm">und.</span></span>
+              </div>
+
+              <div class="flex gap-2 items-center">
+                <span class="text-sm">Preço unitário</span>
+                <span class="border-1 border-l border-primary"></span>
+                <span class="font-medium">R${{ product.price | decimalWithTwoDigits }}</span>
+              </div>
+
+              <div class="flex gap-2 items-center">
+                <span class="text-sm">Custo total</span>
+                <span class="border-1 border-l border-primary"></span>
+                <span class="font-medium">R${{ product.total_cost | decimalWithTwoDigits }}</span>
+              </div>
+
+              @if (product.description && product.description != "") {
+                <div class="flex flex-col gap-1 mt-2">
+                  <span class="text-sm">Descrição</span>
+                  <!--                  <span class="border-1 border-l border-primary"></span>-->
+                  <span class="font-medium">{{ product.description }}</span>
+                </div>
+              }</a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+</main>

@@ -5,8 +5,11 @@
       @if (customers) {
         <div class="flex flex-col">
           <label class="text-primary text-lg font-semibold" for="customer">Cliente</label>
-          <select formControlName="customer" id="customer" type="text"
-                  class="px-2 py-1 border-1 border-black rounded-md">
+          <select
+            formControlName="customer"
+            id="customer"
+            type="text"
+            class="px-2 py-1 border-1 border-black rounded-md">
             @for (customer of customers; track customer.id) {
               <option [value]="customer.id">{{ customer.name }}</option>
             }
@@ -21,7 +24,7 @@
 
       <span class="border-b-1 border-gray-300"></span>
 
-      @if (products) {
+      @if (productsData) {
         <div formArrayName="products" class="flex flex-col gap-4 max-w-[480px]">
           <div class="flex gap-2 items-center">
             <h5 class="text-primary text-lg font-semibold">Produtos</h5>
@@ -36,27 +39,33 @@
           </div>
           @for (productForm of productsArray.controls; let i = $index; track i) {
             <div class="flex flex-col">
-              <div class="flex gap-4 items-end" [formArrayName]="i">
+              <div class="flex gap-4 items-end" [formGroupName]="i">
                 <div class="flex flex-col">
-                  <label class="text-sm" for="id">Produto</label>
+                  <label class="text-sm" for="id-{{i}}">Produto</label>
                   <select
+                    (input)="this.onProductIdInput(i, $event)"
                     formControlName="id"
-                    id="id"
+                    id="id-{{i}}"
+                    name="id-{{i}}"
                     type="text"
-                    [value]="productForm.get('id')!.value"
+                    [value]="productsArray.at(i).value.id"
                     class="px-2 py-1 h-[32px] border-1 border-black rounded-md"
                   >
-                    @for (product of products; track product.id) {
+<!--                    [value]="productsArray.at(i).value.id"-->
+                    @for (product of productsData; track product.id) {
                       <option [value]="product.id">{{ product.name }}</option>
                     }
                   </select>
                 </div>
                 <div class="flex flex-col  max-w-[80px]">
-                  <label class="text-sm" for="quantity">Quantidade</label>
+                  <label class="text-sm" for="quantity-{{i}}">Quantidade</label>
                   <input
+                    min="1"
+                    (input)="this.onProductQuantityInput(i, $event)"
                     formControlName="quantity"
-                    [value]="productForm.get('quantity')!.value"
-                    id="quantity"
+                    [value]="productsArray.at(i).value.quantity"
+                    id="quantity-{{i}}"
+                    name="quantity-{{i}}"
                     type="number"
                     class="px-2 h-[32px] border-1 border-black rounded-md">
                 </div>

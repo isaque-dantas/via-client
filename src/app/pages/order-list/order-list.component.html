@@ -1,18 +1,20 @@
-<main class="container pb-20 flex gap-8">
-  <div>
-    <h3 class="text-primary text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
-    <app-order-form
-      (newOrderAdded)="addNew($event)"
-      (orderEdited)="edit($event)"
-      (creationModeSet)="setCreationMode()"
-      [editModeEmitter]="editModeEmitter"
-      [products]="products"
-      [customers]="customers"
-    />
+<main class="container pb-20 flex gap-12">
+  <div class="flex gap-12">
+    <div>
+      <h3 class="text-primary text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
+      <app-order-form
+        (newOrderAdded)="addNew($event)"
+        (orderEdited)="edit($event)"
+        (creationModeSet)="setCreationMode()"
+        [editModeEmitter]="editModeEmitter"
+        [productsData]="products"
+        [customers]="customers"
+      />
+    </div>
+    <span class="border-l border-1 border-gray-200"></span>
   </div>
-
   <div class="w-full">
-    <h3 class="text-primary font-semibold text-3xl mt-16 mb-6">Pedidos</h3>
+    <h3 class="text-primary font-semibold text-3xl mb-6">Pedidos</h3>
 
     @if (finishedFirstLoading) {
       @if (orders.length == 0) {
@@ -27,7 +29,7 @@
                 <div class="flex gap-2 items-center">
                   <span class="text-sm">Data</span>
                   <span class="border-1 border-l border-primary"></span>
-                  <span class="font-medium">{{ order.date }}</span>
+                  <span class="font-medium">{{ order.date | localDate }}</span>
                 </div>
 
                 <div class="flex gap-2 items-center">

@@ -4,19 +4,21 @@ import {OrderService} from '../../services/order.service';
 import {AlertService} from '../../services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {OrderToSend, Order} from '../../interfaces/order';
-import {Observable} from 'rxjs';
 import {Product} from '../../interfaces/product';
 import {Customer} from '../../interfaces/customer';
 import {ProductService} from '../../services/product.service';
 import {CustomerService} from '../../services/customer.service';
 import {OrderProduct} from '../../interfaces/order-product';
 import {RouterLink} from '@angular/router';
+import {LocalDatePipe} from '../../pipes/local-date.pipe';
+import {OrderFormService} from '../../services/order-form.service';
 
 @Component({
   selector: 'app-order-list',
   imports: [
     OrderFormComponent,
-    RouterLink
+    RouterLink,
+    LocalDatePipe
   ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
@@ -30,6 +32,7 @@ export class OrderListComponent implements OnInit {
   editModeEmitter = new EventEmitter<OrderToSend>()
 
   orderService = inject(OrderService)
+  orderFormService = inject(OrderFormService)
   alertService = inject(AlertService)
   productService = inject(ProductService)
   customerService = inject(CustomerService)
@@ -53,7 +56,7 @@ export class OrderListComponent implements OnInit {
 
   setEditModeToId(orderId: number) {
     const order = this.orders.filter(p => p.id === orderId)[0]
-    const orderToSend = this.orderService.getOrderToSendFromOrder(order)
+    const orderToSend = this.orderFormService.getOrderToSendFromOrder(order)
     this.editModeEmitter.emit(orderToSend)
     this.formTitle = `Editar pedido #${order.id}`
   }
@@ -64,20 +67,22 @@ export class OrderListComponent implements OnInit {
       const productsInEditedOrder = editedOrder.products.map((product: OrderProduct) => product.id)
 
       this.products = this.products.map(product => {
-        if (!(product.id in productsInEditedOrder)) return product
+        if (!(productsInEditedOrder.includes(product.id))) return product
 
-        const editedProduct =
-          editedOrder.products.filter(editedProduct => editedProduct.id === product.id)[0]
+        const editedProduct = editedOrder.products.filter(p => p.id === product.id)[0]
 
         return {...product, quantity: editedProduct.quantity}
       })
 
-      return this.orderService.getOrderAfterUpdate(
+      return this.orderFormService.getOrderAfterUpdate(
         order,
-        this.customers.filter(c => c.id === editedOrder.customerId)[0],
-        this.products.filter(product => product.id in productsInEditedOrder)
+        this.customers.filter(c => c.id === parseInt(editedOrder.customer as unknown as string))[0],
+        this.products.filter(product => productsInEditedOrder.includes(product.id)),
+        editedOrder.date,
+        editedOrder.description,
       )
     })
+    console.log(editedOrder, this.orders)
   }
 
   setCreationMode() {

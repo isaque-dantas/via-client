@@ -1,12 +1,13 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
-import {FormArray, FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
 import {OrderService} from '../../services/order.service';
 import {AlertService} from '../../services/alert.service';
 import {OrderToSend, Order} from '../../interfaces/order';
 import {HttpErrorResponse} from '@angular/common/http';
-import {ProductService} from '../../services/product.service';
 import {Product} from '../../interfaces/product';
 import {Customer} from '../../interfaces/customer';
+import {ProductFormService} from '../../services/product-form.service';
+import {OrderFormService} from '../../services/order-form.service';
 
 @Component({
   selector: 'app-order-form',
@@ -18,27 +19,22 @@ import {Customer} from '../../interfaces/customer';
 })
 export class OrderFormComponent implements OnInit {
   orderService = inject(OrderService)
+  orderFormService = inject(OrderFormService)
   alertService = inject(AlertService)
-  productService = inject(ProductService)
+  productFormService = inject(ProductFormService)
 
   fb = inject(FormBuilder)
   form = this.fb.group(
     {
-      customer: [null, [Validators.required]],
+      customer: new FormControl<number | null>(null, Validators.required),
       products: this.fb.array(
         [
-          this.productService.productGroupFactory()
-        ], [Validators.min(1), this.orderService.uniqueProductIdValidator]
+          this.productFormService.productGroupFactory()
+        ], [Validators.min(1), this.orderFormService.uniqueProductIdValidator]
       ),
-      date: ['', [Validators.required, this.orderService.dateNotPastThanTodayValidator]],
+      date: ['', [Validators.required, this.orderFormService.dateNotPastThanTodayValidator]],
       description: ['', [Validators.maxLength(256)]],
     },
-    // {
-    //   validators: [
-    //     this.orderService.datePastThanValidator('startDate', 'endDate'),
-    //     this.orderService.datePastThanValidator('subscriptionsOpening', 'subscriptionsClosing')
-    //   ]
-    // }
   )
 
   @Output() newOrderAdded = new EventEmitter<Order>()
@@ -46,7 +42,7 @@ export class OrderFormComponent implements OnInit {
   @Output() creationModeSet = new EventEmitter<void>()
 
   @Input() editModeEmitter!: EventEmitter<OrderToSend>
-  @Input() products!: Product[]
+  @Input() productsData!: Product[]
   @Input() customers!: Customer[]
 
   orderBeingEdited!: OrderToSend | null
@@ -62,23 +58,22 @@ export class OrderFormComponent implements OnInit {
       this.orderBeingEdited = order
       this.mode = "edit"
 
-      // this.form.setValue({
-      //   name: order.name,
-      //   price: order.price,
-      //   description: order.description ?? null
-      // })
+      // console.log('in emitter', this.productsArray.at(0)?.get('quantity')?.value)
+      this.setDataToForm(order)
     })
 
     this.form.valueChanges.subscribe((value) => {
-      console.log(this.productsArray.errors)
+      console.log(value)
+      // console.log('in changes', this.productsArray.at(0)?.value, this.productsArray.at(1)?.value)
+      // console.log('---')
     })
   }
 
   onSubmit() {
-    console.log(this.form.value)
-    console.log(this.form.controls.customer.errors)
-    console.log(this.form.controls.date.errors)
-    console.log('---')
+    // console.log(this.form.value)
+    // console.log(this.form.controls.customer.errors)
+    // console.log(this.form.controls.date.errors)
+    // console.log('---')
     this.alreadyClickedSubmitButton = true
 
     if (this.form.invalid) {
@@ -131,7 +126,7 @@ export class OrderFormComponent implements OnInit {
   resetForm() {
     this.form.reset()
     this.productsArray.clear()
-    this.productsArray.push(this.productService.productGroupFactory())
+    this.productsArray.push(this.productFormService.productGroupFactory())
     this.alreadyClickedSubmitButton = false
   }
 
@@ -146,16 +141,47 @@ export class OrderFormComponent implements OnInit {
   }
 
   addProduct() {
-    this.productsArray.push(this.productService.productGroupFactory())
+    this.productsArray.push(this.productFormService.productGroupFactory())
   }
 
   getProductsNamesByIds(productsIds: number[]) {
     const names =
       productsIds
         .map(id => {
-          return '"' + this.products.filter(p => p.id === id)[0].name + '"'
+          return '"' + this.productsData.filter(p => p.id === id)[0].name + '"'
         })
 
     return names.join(', ')
+  }
+
+  setDataToForm(order: OrderToSend) {
+    this.resetForm()
+
+    for (let i = 0; i < order.products.length - 1; i++) {
+      this.productsArray.controls.push(this.productFormService.productGroupFactory())
+    }
+
+    this.form.setValue({
+      customer: order.customer,
+      products: order.products,
+      date: order.date,
+      description: order.description ?? null
+    })
+
+    order.products.forEach((product, i) => this.productsArray.at(i).setValue(product))
+  }
+
+  onProductIdInput(i: number, event: Event) {
+    this.productsArray.controls.at(i)?.setValue({
+      ...this.productsArray.at(i)?.value,
+      id: parseInt((event.target as HTMLInputElement).value)
+    })
+  }
+
+  onProductQuantityInput(i: number, event: Event) {
+    this.productsArray.controls.at(i)?.setValue({
+      ...this.productsArray.at(i)?.value,
+      quantity: parseInt((event.target as HTMLInputElement).value)
+    })
   }
 }
