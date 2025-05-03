@@ -2,10 +2,18 @@
 
 @theme {
   --font-sans: "Raleway", sans-serif;
+
   --color-white: #F8FDFF;
+  --color-white-rgb: 248, 253, 255;
+
   --color-primary: #0E5E84;
+  --color-primary-rgb: 14, 94, 132;
+
   --color-secondary: #FC9F5B;
+  --color-secondary-rgb: 252, 159, 91;
+
   --color-black: #242325;
+  --color-black-rgb: 36, 35, 37;
 }
 
 body {
