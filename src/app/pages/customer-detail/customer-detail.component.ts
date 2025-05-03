@@ -4,10 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CustomerService} from '../../services/customer.service';
 import {AlertService} from '../../services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @Component({
   selector: 'app-customer-detail',
-  imports: [],
+  imports: [
+    HeaderComponent
+  ],
   templateUrl: './customer-detail.component.html',
   styleUrl: './customer-detail.component.css'
 })

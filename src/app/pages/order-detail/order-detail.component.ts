@@ -6,13 +6,15 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {DecimalWithTwoDigitsPipe} from '../../pipes/decimal-with-two-digits.pipe';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../services/alert.service';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @Component({
   selector: 'app-order-detail',
   imports: [
     LocalDatePipe,
     RouterLink,
-    DecimalWithTwoDigitsPipe
+    DecimalWithTwoDigitsPipe,
+    HeaderComponent
   ],
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.css'

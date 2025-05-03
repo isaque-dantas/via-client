@@ -4,10 +4,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EmployeeService} from '../../services/employee.service';
 import {AlertService} from '../../services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [
+    HeaderComponent
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

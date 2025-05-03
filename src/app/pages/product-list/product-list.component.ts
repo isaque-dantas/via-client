@@ -4,11 +4,13 @@ import {Product} from '../../interfaces/product';
 import {ProductService} from '../../services/product.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../services/alert.service';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @Component({
   selector: 'app-product-list',
   imports: [
     ProductFormComponent,
+    HeaderComponent,
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'

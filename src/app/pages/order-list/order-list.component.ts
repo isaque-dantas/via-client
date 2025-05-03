@@ -12,13 +12,15 @@ import {OrderProduct} from '../../interfaces/order-product';
 import {RouterLink} from '@angular/router';
 import {LocalDatePipe} from '../../pipes/local-date.pipe';
 import {OrderFormService} from '../../services/order-form.service';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @Component({
   selector: 'app-order-list',
   imports: [
     OrderFormComponent,
     RouterLink,
-    LocalDatePipe
+    LocalDatePipe,
+    HeaderComponent
   ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
