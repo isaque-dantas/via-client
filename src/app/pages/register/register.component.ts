@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {EmployeeService} from '../../services/employee.service';
 import {AlertService} from '../../services/alert.service';
-import {LoginData} from '../../interfaces/login-data';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Employee} from '../../interfaces/employee';
 import {Router} from '@angular/router';
