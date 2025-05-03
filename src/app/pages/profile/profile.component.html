@@ -1,1 +1,16 @@
-<p>profile works!</p>
+<main class="container pb-40">
+  @if (employee) {
+    <h1 class="text-primary font-semibold text-4xl leading-none mb-6">{{ employee.name }}</h1>
+
+    <div class="flex gap-2 items-center mb-10">
+      <p>E-mail</p>
+      <p class="border-primary border-1"></p>
+      <p class="font-medium text-xl">{{ employee.email }}</p>
+    </div>
+
+    <h3 class="text-primary font-semibold text-xl leading-none mb-6">Pedidos cadastrados</h3>
+  } @else {
+    <p>Carregando...</p>
+  }
+
+</main>
