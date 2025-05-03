@@ -4,14 +4,15 @@ import {EmployeeService} from '../../services/employee.service';
 import {AlertService} from '../../services/alert.service';
 import {LoginData} from '../../interfaces/login-data';
 import {HttpErrorResponse} from '@angular/common/http';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'

@@ -4,13 +4,14 @@ import {EmployeeService} from '../../services/employee.service';
 import {AlertService} from '../../services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Employee} from '../../interfaces/employee';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-register',
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
