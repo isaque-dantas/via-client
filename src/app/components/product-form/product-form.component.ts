@@ -4,11 +4,13 @@ import {ProductService} from '../../services/product.service';
 import {AlertService} from '../../services/alert.service';
 import {Product} from '../../interfaces/product';
 import {HttpErrorResponse} from '@angular/common/http';
+import {NgxMaskDirective} from 'ngx-mask';
 
 @Component({
   selector: 'app-product-form',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.css'
@@ -64,7 +66,7 @@ export class ProductFormComponent implements OnInit {
         this.newProductAdded.emit(product)
         this.form.reset()
       },
-      error: (response: HttpErrorResponse) => this.alertService.error(response.message),
+      error: (response: HttpErrorResponse) => this.handleError(response),
     })
   }
 
@@ -78,8 +80,20 @@ export class ProductFormComponent implements OnInit {
 
         this.setCreationMode()
       },
-      error: (response: HttpErrorResponse) => this.alertService.error(response.message),
+      error: (response: HttpErrorResponse) => this.handleError(response),
     })
+  }
+
+  handleError(response: HttpErrorResponse) {
+    if (!('non_field_errors' in response.error)) {
+      this.alertService.error(response.message)
+      return;
+    }
+    console.log(response.error)
+    console.log(response.error.non_field_errors)
+    for (let error of response.error.non_field_errors) {
+      this.alertService.error(error)
+    }
   }
 
   setCreationMode() {
