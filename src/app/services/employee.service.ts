@@ -22,4 +22,8 @@ export class EmployeeService {
   register(employee: Employee) {
     return this.http.post<Employee>(`${baseApiUrl}/employee`, employee)
   }
+
+  get(email: string) {
+    return this.http.get<Employee>(`${baseApiUrl}/employee/${email}`)
+  }
 }
