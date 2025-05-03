@@ -13,6 +13,10 @@ export class CustomerService {
     return this.http.get<Customer[]>(`${baseApiUrl}/customer`)
   }
 
+  get(customerId: number) {
+    return this.http.get<Customer>(`${baseApiUrl}/customer/${customerId}`)
+  }
+
   create(customer: Customer) {
     return this.http.post<Customer>(`${baseApiUrl}/customer`, customer)
   }
