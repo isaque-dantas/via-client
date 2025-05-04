@@ -33,7 +33,13 @@
 
       @if (!this.form.controls.shouldFilterReports.value || this.form.controls.selectedReport.value === 'selling_resume') {
         <div class="flex flex-col gap-4">
-          <h3 class="text-primary text-2xl font-semibold">Resumo das vendas</h3>
+          <div>
+            <h3 class="text-primary text-2xl font-semibold">Resumo das vendas</h3>
+            <p class="font-light text-sm italic mt-1 max-w-[480px]">
+              Os campos "valor total faturado" e "quantidade total de produtos vendidos" apenas levam em
+              conta pedidos com status "Finalizado"
+            </p>
+          </div>
 
           <table class="table-cell border-collapse border-1 border-gray-300 rounded-md w-fit">
             <thead>
@@ -59,7 +65,7 @@
         <div class="flex flex-col gap-6">
           <div>
             <h3 class="text-primary text-2xl font-semibold">Pedidos pendentes</h3>
-            <p class="font-light text-sm italic">Ou seja, os pedidos com status igual a "Em andamento"</p>
+            <p class="font-light text-sm italic mt-1">Ou seja, os pedidos com status igual a "Em andamento"</p>
           </div>
 
           <table class="table-cell border-1 border-gray-300 rounded-md w-fit">
@@ -96,7 +102,7 @@
         <div class="flex flex-col gap-6">
           <div>
             <h3 class="text-primary text-2xl font-semibold">Clientes mais ativos</h3>
-            <p class="font-light text-sm italic">
+            <p class="font-light text-sm italic mt-1">
               Os que mais realizaram pedidos; o primeiro realizou mais pedidos, e assim por diante.
             </p>
           </div>
