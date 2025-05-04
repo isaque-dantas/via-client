@@ -9,6 +9,7 @@ import {ProfileComponent} from './pages/profile/profile.component';
 import {RegisterComponent} from './pages/register/register.component';
 import {loggedOnlyGuard} from './auth/logged-only.guard';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
+import {ReportsComponent} from './pages/reports/reports.component';
 
 export const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -23,7 +24,8 @@ export const routes: Routes = [
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
   {path: 'orders', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
   {path: 'order/:id', component: OrderDetailComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'reports', component: ReportsComponent, canActivate: [loggedOnlyGuard]},
 
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
