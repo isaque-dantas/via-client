@@ -1,0 +1,133 @@
+<app-header></app-header>
+<main class="container pb-20">
+  <h1 class="text-primary text-4xl font-semibold">Relatórios</h1>
+
+  <form [formGroup]="form">
+    <div class="my-10 flex gap-8 items-center">
+      <div class="flex gap-2 ">
+        <input type="checkbox" id="shouldApplySelect" formControlName="shouldFilterReports" class="outline-0">
+        <label for="shouldApplySelect" class="font-medium">Filtrar relatórios?</label>
+      </div>
+
+      <div class="border-l-1 border-gray-300 h-[16px]" [class.invisible]="form.controls.selectedReport.disabled"></div>
+
+      <select
+        formControlName="selectedReport"
+        [class]="
+          'outline-0 pl-1 py-1 ' +
+          'border border-gray rounded-md font-medium'"
+        [class.invisible]="form.controls.selectedReport.disabled"
+      >
+        <option value="" [selected]="true" [disabled]="true">Selecione</option>
+        <option value="selling_resume">Resumo das vendas</option>
+        <option value="pending_orders">Pedidos pendentes</option>
+        <option value="most_active_customers">Clientes mais ativos</option>
+      </select>
+
+    </div>
+  </form>
+
+  @if (reports$ | async; as reports) {
+
+    <div class="flex flex-col gap-16">
+
+      @if (!this.form.controls.shouldFilterReports.value || this.form.controls.selectedReport.value === 'selling_resume') {
+        <div class="flex flex-col gap-4">
+          <h3 class="text-primary text-2xl font-semibold">Resumo das vendas</h3>
+
+          <table class="table-cell border-collapse border-1 border-gray-300 rounded-md w-fit">
+            <thead>
+            <tr class="border-b-1 border-gray-300">
+              <th>Total de pedidos realizados</th>
+              <th>Valor total faturado</th>
+              <th>Quantidade total de produtos vendidos</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+              <td>{{ reports.selling_resume.orders_quantity }}</td>
+              <td>{{ reports.selling_resume.total_amount_invoiced }}</td>
+              <td>{{ reports.selling_resume.total_sold_products_quantity }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (!this.form.controls.shouldFilterReports.value || this.form.controls.selectedReport.value === 'pending_orders') {
+        <div class="flex flex-col gap-6">
+          <div>
+            <h3 class="text-primary text-2xl font-semibold">Pedidos pendentes</h3>
+            <p class="font-light text-sm italic">Ou seja, os pedidos com status igual a "Em andamento"</p>
+          </div>
+
+          <table class="table-cell border-1 border-gray-300 rounded-md w-fit">
+            <thead>
+            <tr class="border-b-1 border-gray-300">
+              <th>Id</th>
+              <th>Nome do cliente</th>
+              <th>Produtos</th>
+              <th>Status</th>
+              <th>Data</th>
+              <th>Descrição</th>
+              <th>Usuário que cadastrou</th>
+            </tr>
+            </thead>
+
+            <tbody>
+              @for (order of reports.pending_orders; track order.id) {
+                <tr class="not-last:border-b-1 not-last:border-gray-300">
+                  <td>{{ order.id }}</td>
+                  <td>{{ order.customer.name }}</td>
+                  <td>{{ joinProductsNames(order.products) }}</td>
+                  <td>{{ order.status }}</td>
+                  <td>{{ order.date | localDate }}</td>
+                  <td>{{ order.description }}</td>
+                  <td>{{ order.employee.name }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+      @if (!this.form.controls.shouldFilterReports.value || this.form.controls.selectedReport.value === 'most_active_customers') {
+        <div class="flex flex-col gap-6">
+          <div>
+            <h3 class="text-primary text-2xl font-semibold">Clientes mais ativos</h3>
+            <p class="font-light text-sm italic">
+              Os que mais realizaram pedidos; o primeiro realizou mais pedidos, e assim por diante.
+            </p>
+          </div>
+
+          <table class="table-cell border-1 border-gray-300 rounded-md w-fit">
+            <thead>
+            <tr class="border-b-1 border-gray-300">
+              <th>Id</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Qtd. de pedidos</th>
+            </tr>
+            </thead>
+
+            <tbody>
+              @for (customer of reports.most_active_customers; track customer.id) {
+                <tr class="not-last:border-b-1 not-last:border-gray-300">
+                  <td>{{ customer.id }}</td>
+                  <td>{{ customer.name }}</td>
+                  <td>{{ customer.email }}</td>
+                  <td>{{ customer.orders_count }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+    </div>
+
+  } @else {
+    <p>Carregando relatórios...</p>
+  }
+</main>

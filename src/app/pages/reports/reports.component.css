@@ -1,0 +1,15 @@
+td, th {
+  padding: 16px 12px;
+}
+
+th {
+  text-align: start;
+}
+
+tbody > tr {
+  transition: background-color 100ms ease;
+}
+
+tbody > tr:hover {
+  background-color: rgba(var(--color-secondary-rgb), 0.1);
+}
