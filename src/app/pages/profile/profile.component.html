@@ -9,7 +9,53 @@
       <p class="font-medium text-xl">{{ employee.email }}</p>
     </div>
 
-    <h3 class="text-primary font-semibold text-xl leading-none mb-6">Pedidos cadastrados</h3>
+    @if (orders$ | async; as orders) {
+      @if (orders.length > 0) {
+        <h3 class="text-primary font-semibold text-xl leading-none mb-6">Pedidos cadastrados</h3>
+
+        <ul class="grid gap-6 grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
+          @for (order of orders; track order.id) {
+            <li class="border-2 border-primary p-4 flex rounded-md justify-between">
+              <div class="flex flex-col">
+                <div class="flex gap-2 items-center">
+                  <span class="text-sm">Cliente</span>
+                  <span class="border-1 border-l border-primary"></span>
+                  <span class="font-medium">{{ order.customer.name }}</span>
+                </div>
+
+                <div class="flex gap-2 items-center">
+                  <span class="text-sm">Data</span>
+                  <span class="border-1 border-l border-primary"></span>
+                  <span class="font-medium">{{ order.date | localDate }}</span>
+                </div>
+
+                <div class="flex gap-2 items-center">
+                  <span class="text-sm">Status</span>
+                  <span class="border-1 border-l border-primary"></span>
+                  <span class="font-medium">{{ order.status }}</span>
+                </div>
+
+                @if (order.description) {
+                  <div class="flex flex-col mt-2">
+                    <span class="text-sm">Descrição</span>
+                    <span class="font-medium">{{ order.description }}</span>
+                  </div>
+                }
+              </div>
+              <div class="flex flex-col gap-2 pl-2 items-center">
+                <a routerLink="/order/{{order.id}}"
+                   class="material-symbols-outlined text-[20px]! cursor-pointer">open_in_new</a>
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>Não foram encontrados pedidos desse cliente.</p>
+      }
+
+    } @else {
+      <p>Carregando pedidos do cliente...</p>
+    }
   } @else {
     <p>Carregando...</p>
   }

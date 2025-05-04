@@ -31,6 +31,11 @@
         <p class="border-primary border-1"></p>
         <p class="font-medium text-xl">{{ order.date | localDate }}</p>
       </div>
+      <div class="flex gap-2 items-center">
+        <p>Custo total</p>
+        <p class="border-primary border-1"></p>
+        <p class="font-medium text-xl">R${{ order.total_cost | decimalWithTwoDigits }}</p>
+      </div>
 
       @if (order.description) {
         <div class="flex gap-2 items-center">

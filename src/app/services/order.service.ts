@@ -17,6 +17,18 @@ export class OrderService {
     return this.http.get<Order>(`${baseApiUrl}/order/${orderId}`)
   }
 
+  getRelatedToCustomer(customerId: number) {
+    return this.http.get<Order[]>(`${baseApiUrl}/order?customer_id=${customerId}`)
+  }
+
+  getRelatedToProduct(productId: any) {
+    return this.http.get<Order[]>(`${baseApiUrl}/order?product_id=${productId}`)
+  }
+
+  getRelatedToEmployee(employeeEmail: string) {
+    return this.http.get<Order[]>(`${baseApiUrl}/order?employee_email=${employeeEmail}`)
+  }
+
   create(order: OrderToSend) {
     return this.http.post<Order>(`${baseApiUrl}/order`, order)
   }

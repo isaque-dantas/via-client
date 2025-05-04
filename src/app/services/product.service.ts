@@ -13,6 +13,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${baseApiUrl}/product`)
   }
 
+  get(id: number) {
+    return this.http.get<Product>(`${baseApiUrl}/product/${id}`)
+  }
+
   create(product: Product) {
     return this.http.post<Product>(`${baseApiUrl}/product`, product)
   }
