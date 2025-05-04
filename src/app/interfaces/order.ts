@@ -19,4 +19,5 @@ export interface Order {
   status: string;
   description?: string;
   date: string;
+  total_cost: string;
 }
