@@ -3,8 +3,6 @@ import {NgOptimizedImage} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NavItem} from '../../interfaces/nav-item';
 import {AuthService} from '../../services/auth.service';
-import {EmployeeService} from '../../services/employee.service';
-import {Employee} from '../../interfaces/employee';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +16,6 @@ import {Employee} from '../../interfaces/employee';
 export class HeaderComponent implements OnInit {
   route = inject(ActivatedRoute)
   authService = inject(AuthService)
-  employeeService = inject(EmployeeService)
   userIsLogged!: boolean
 
   possibleActionButtons: { nonLogged: NavItem[], logged: NavItem[] } = {
@@ -64,20 +61,7 @@ export class HeaderComponent implements OnInit {
       })
     })
 
-    this.authService.authStatusChanged.subscribe(() => {
-      this.setLinkForLoggedEmployee()
-      this.userIsLogged = this.authService.isAuthenticated()
-    })
-
-    this.setLinkForLoggedEmployee()
+    this.authService.authStatusChanged.subscribe(() => this.userIsLogged = this.authService.isAuthenticated())
     this.userIsLogged = this.authService.isAuthenticated()
-  }
-
-  setLinkForLoggedEmployee() {
-    if (!this.authService.isAuthenticated()) return;
-
-    return this.employeeService.getLogged().subscribe((data: Employee) => {
-      this.possibleActionButtons.logged[0].link = `/employee/${data.email}`
-    })
   }
 }
