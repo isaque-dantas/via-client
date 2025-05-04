@@ -10,6 +10,7 @@ import {RegisterComponent} from './pages/register/register.component';
 import {loggedOnlyGuard} from './auth/logged-only.guard';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
 import {ReportsComponent} from './pages/reports/reports.component';
+import {ProductDetailComponent} from './pages/product-detail/product-detail.component';
 
 export const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -19,7 +20,7 @@ export const routes: Routes = [
   {path: 'employee', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
   {path: 'employee/:email', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
   {path: 'products', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'product/:id', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'product/:id', component: ProductDetailComponent, canActivate: [loggedOnlyGuard]},
   {path: 'customers', component: CustomerListComponent, canActivate: [loggedOnlyGuard]},
   {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
   {path: 'orders', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
