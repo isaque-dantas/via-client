@@ -5,12 +5,14 @@ import {ProductService} from '../../services/product.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../services/alert.service';
 import {HeaderComponent} from '../../components/header/header.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   imports: [
     ProductFormComponent,
     HeaderComponent,
+    RouterLink,
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'

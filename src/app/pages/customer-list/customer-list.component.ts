@@ -6,10 +6,11 @@ import {AlertService} from '../../services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from '../../components/header/header.component';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-customer-list',
-  imports: [CustomerFormComponent, ReactiveFormsModule, HeaderComponent],
+  imports: [CustomerFormComponent, ReactiveFormsModule, HeaderComponent, RouterLink],
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.css'
 })

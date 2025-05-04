@@ -29,12 +29,13 @@
               @if (product.description) {
                 <div class="flex flex-col gap-1 mt-2">
                   <span class="text-sm">Descrição</span>
-<!--                  <span class="border-1 border-l border-primary"></span>-->
                   <span class="font-medium">{{ product.description }}</span>
                 </div>
               }
             </div>
             <div class="flex flex-col gap-2 pl-2 items-center">
+              <a routerLink="/product/{{product.id}}"
+                 class="material-symbols-outlined text-[20px]! cursor-pointer">open_in_new</a>
               <button type="button" (click)="setEditModeToId(product.id)"
                       class="material-symbols-outlined text-[20px]! cursor-pointer">edit
               </button>
