@@ -11,11 +11,13 @@ import {loggedOnlyGuard} from './auth/logged-only.guard';
 import {CustomerDetailComponent} from './pages/customer-detail/customer-detail.component';
 import {ReportsComponent} from './pages/reports/reports.component';
 import {ProductDetailComponent} from './pages/product-detail/product-detail.component';
+import {VowelReaderComponent} from './pages/vowel-reader/vowel-reader.component';
 
 export const routes: Routes = [
   {path: 'inicio', component: HomeComponent},
   {path: 'fazer-cadastro', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'leitor-vogal', component: VowelReaderComponent},
 
   {path: 'funcionario', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
   {path: 'funcionario/:email', component: ProfileComponent, canActivate: [loggedOnlyGuard]},

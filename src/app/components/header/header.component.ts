@@ -29,13 +29,17 @@ export class HeaderComponent implements OnInit {
   }
 
   possibleNavItems: { nonLogged: NavItem[], logged: NavItem[] } = {
-    nonLogged: [{label: 'Início', link: '/inicio'}],
+    nonLogged: [
+      {label: 'Início', link: '/inicio'},
+      {label: 'Tarefa 1', link: '/leitor-vogal'},
+    ],
     logged: [
       {label: 'Início', link: '/inicio'},
       {label: 'Pedidos', link: '/pedidos'},
       {label: 'Clientes', link: '/clientes'},
       {label: 'Produtos', link: '/produtos'},
       {label: 'Relatórios', link: '/relatorios'},
+      {label: 'Tarefa 1', link: '/leitor-vogal'},
     ],
   }
 

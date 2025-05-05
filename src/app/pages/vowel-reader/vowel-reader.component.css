@@ -1,0 +1,17 @@
+td, th {
+  padding: 8px 24px;
+}
+
+th {
+  text-align: start;
+}
+
+tr > td:first-child,
+tr > th:first-child {
+  padding-left: 12px;
+}
+
+tr > td:last-child,
+tr > th:last-child {
+  padding-right: 12px;
+}

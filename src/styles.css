@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "Raleway", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
 
   --color-white: #F8FDFF;
   --color-white-rgb: 248, 253, 255;
