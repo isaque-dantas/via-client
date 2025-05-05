@@ -25,6 +25,10 @@ body {
   @apply mx-auto;
 }
 
+main.container {
+  @apply mt-40;
+}
+
 .luminosity-effect {
   @apply absolute z-[-1] w-[320px] h-[400px] rounded-full;
 
