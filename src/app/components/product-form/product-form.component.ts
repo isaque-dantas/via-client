@@ -19,7 +19,7 @@ export class ProductFormComponent implements OnInit {
   fb = inject(FormBuilder)
   form = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(128)]],
-    price: [0, [Validators.required, Validators.max(9999999999.99)]],
+    price: [0, [Validators.required, Validators.max(99999999.99)]],
     description: ['', [Validators.maxLength(256)]],
   })
 

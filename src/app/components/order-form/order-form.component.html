@@ -51,7 +51,6 @@
                     [value]="productsArray.at(i).value.id"
                     class="px-2 py-1 h-[32px] border-1 border-black rounded-md"
                   >
-<!--                    [value]="productsArray.at(i).value.id"-->
                     @for (product of productsData; track product.id) {
                       <option [value]="product.id">{{ product.name }}</option>
                     }
@@ -88,6 +87,10 @@
                 @if ((alreadyClickedSubmitButton || productForm.get('quantity')!.dirty) && productForm.get('quantity')!.getError('max')) {
                   <span class="mt-1 text-red-700 text-sm">A quantidade máxima é de
                     {{ productForm.get('quantity')!.getError('max').max }}.</span>
+                }
+                @if ((alreadyClickedSubmitButton || productForm.get('quantity')!.dirty) && productForm.get('quantity')!.getError('min')) {
+                  <span class="mt-1 text-red-700 text-sm">A quantidade mínima é de
+                    {{ productForm.get('quantity')!.getError('min').min }}.</span>
                 }
               </div>
             </div>
