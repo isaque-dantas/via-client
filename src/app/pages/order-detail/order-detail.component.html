@@ -14,7 +14,7 @@
       </select>
 
       <p class="rounded-xl border-1 border-primary text-primary px-2 py-0.5">
-        <span>Responsável - </span> <a routerLink="/employee/{{order.employee.email}}"
+        <span>Responsável - </span> <a routerLink="/funcionario/{{order.employee.email}}"
                                        class="font-medium underline underline-offset-2">{{ order.employee.name }}</a>
       </p>
     </div>
@@ -23,7 +23,7 @@
       <div class="flex gap-2 items-center">
         <p>Cliente</p>
         <p class="border-primary border-1"></p>
-        <a routerLink="/customer/{{order.customer.id}}"
+        <a routerLink="/cliente/{{order.customer.id}}"
            class="font-medium text-xl underline underline-offset-2">{{ order.customer.name }}</a>
       </div>
       <div class="flex gap-2 items-center">
@@ -51,7 +51,7 @@
       <ul class="grid grid-cols-4 gap-8">
         @for (product of order.products; track product.id) {
           <li class="border-2 border-primary rounded-md p-4">
-            <a routerLink="/product/{{ product.id }}" class="flex flex-col gap-2">
+            <a routerLink="/produto/{{ product.id }}" class="flex flex-col gap-2">
               <div class="flex gap-4 items-center">
                 <h5 class="font-medium text-xl">{{ product.name }}</h5>
                 <span class="border-1 border-l border-primary"></span>

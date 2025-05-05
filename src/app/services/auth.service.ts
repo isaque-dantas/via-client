@@ -19,7 +19,7 @@ export class AuthService {
   logout() {
     localStorage.clear()
     this.emitStatusChanged()
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/inicio')
   }
 
   emitStatusChanged() {

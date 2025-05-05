@@ -21,21 +21,21 @@ export class HeaderComponent implements OnInit {
   possibleActionButtons: { nonLogged: NavItem[], logged: NavItem[] } = {
     nonLogged: [
       {label: 'Login', link: '/login'},
-      {label: 'Fazer cadastro', link: '/register'},
+      {label: 'Fazer cadastro', link: '/fazer-cadastro'},
     ],
     logged: [
-      {label: 'Ver perfil', link: '/employee'},
+      {label: 'Ver perfil', link: '/funcionario'},
     ],
   }
 
   possibleNavItems: { nonLogged: NavItem[], logged: NavItem[] } = {
-    nonLogged: [{label: 'Início', link: '/home'}],
+    nonLogged: [{label: 'Início', link: '/inicio'}],
     logged: [
-      {label: 'Início', link: '/home'},
-      {label: 'Pedidos', link: '/orders'},
-      {label: 'Clientes', link: '/customers'},
-      {label: 'Produtos', link: '/products'},
-      {label: 'Relatórios', link: '/reports'},
+      {label: 'Início', link: '/inicio'},
+      {label: 'Pedidos', link: '/pedidos'},
+      {label: 'Clientes', link: '/clientes'},
+      {label: 'Produtos', link: '/produtos'},
+      {label: 'Relatórios', link: '/relatorios'},
     ],
   }
 

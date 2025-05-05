@@ -13,20 +13,20 @@ import {ReportsComponent} from './pages/reports/reports.component';
 import {ProductDetailComponent} from './pages/product-detail/product-detail.component';
 
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'inicio', component: HomeComponent},
+  {path: 'fazer-cadastro', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
 
-  {path: 'employee', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'employee/:email', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'products', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'product/:id', component: ProductDetailComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'customers', component: CustomerListComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'customer/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'orders', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'order/:id', component: OrderDetailComponent, canActivate: [loggedOnlyGuard]},
-  {path: 'reports', component: ReportsComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'funcionario', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'funcionario/:email', component: ProfileComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'produtos', component: ProductListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'produto/:id', component: ProductDetailComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'clientes', component: CustomerListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'cliente/:id', component: CustomerDetailComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'pedidos', component: OrderListComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'pedido/:id', component: OrderDetailComponent, canActivate: [loggedOnlyGuard]},
+  {path: 'relatorios', component: ReportsComponent, canActivate: [loggedOnlyGuard]},
 
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '**', redirectTo: '/home', pathMatch: 'full'}
+  {path: '', redirectTo: '/inicio', pathMatch: 'full'},
+  {path: '**', redirectTo: '/inicio', pathMatch: 'full'}
 ];
