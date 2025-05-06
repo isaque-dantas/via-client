@@ -30,7 +30,7 @@ main.container {
   @apply mt-40;
 }
 
-input, textarea, select {
+input, textarea, select, button {
   outline: none;
 }
 

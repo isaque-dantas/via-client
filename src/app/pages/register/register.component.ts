@@ -21,7 +21,7 @@ export class RegisterComponent {
   form = this.fb.group(
     {
       name: ['', [Validators.required, Validators.maxLength(128)]],
-      email: ['', [Validators.required, Validators.email], Validators.maxLength(254)],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(254)]],
       password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(16)]],
     }
   )
@@ -43,7 +43,15 @@ export class RegisterComponent {
           this.alertService.success(`O usuário '${employee.name}' foi criado com sucesso!`)
           this.router.navigateByUrl('login')
         },
-        error: (error: HttpErrorResponse) => this.alertService.error(error.message),
+        error: (error: HttpErrorResponse) => {
+          console.log(error)
+          if(error.error.email.at(0) == "employee with this email already exists.") {
+            this.alertService.error("Esse e-mail já foi cadastrado.")
+            return;
+          }
+
+          this.alertService.error(error.message)
+        },
       }
     )
   }
