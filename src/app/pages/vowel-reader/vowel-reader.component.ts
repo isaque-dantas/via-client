@@ -27,4 +27,10 @@ export class VowelReaderComponent {
       .post(this.inputStringControl.value)
       .subscribe(data => this.result = data)
   }
+
+  getKeyValueFromObject(obj: any) {
+    return Object.entries(obj).map(o => {
+      return {key: o[0], value: o[1]}
+    })
+  }
 }

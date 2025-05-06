@@ -7,3 +7,7 @@
 .enabled {
   @apply border-primary text-primary cursor-pointer hover:bg-primary hover:text-white;
 }
+
+/** {*/
+/*  max-width: 100% !important;*/
+/*}*/

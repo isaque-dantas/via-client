@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, ElementRef, inject, OnInit} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {NavItem} from '../../interfaces/nav-item';
@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit {
   route = inject(ActivatedRoute)
   authService = inject(AuthService)
   userIsLogged!: boolean
+
+  isSuspendedNavOpened = false
 
   possibleActionButtons: { nonLogged: NavItem[], logged: NavItem[] } = {
     nonLogged: [
@@ -67,5 +69,32 @@ export class HeaderComponent implements OnInit {
 
     this.authService.authStatusChanged.subscribe(() => this.userIsLogged = this.authService.isAuthenticated())
     this.userIsLogged = this.authService.isAuthenticated()
+
+    window.addEventListener('click', (event) => {
+      if (
+        !(event.target as HTMLElement).closest('nav#suspended-nav')
+        &&
+        !(event.target as HTMLElement).closest('button#suspended-nav-toggle')
+      )
+        this.disableSuspendedNav()
+    })
+  }
+
+  enableSuspendedNav() {
+    console.log('enabled!')
+    this.isSuspendedNavOpened = true;
+  }
+
+  disableSuspendedNav() {
+    this.isSuspendedNavOpened = false
+  }
+
+  onSuspendedNavButtonClick() {
+    if (this.isSuspendedNavOpened) {
+      this.disableSuspendedNav()
+      return;
+    }
+
+    this.enableSuspendedNav()
   }
 }

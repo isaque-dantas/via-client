@@ -30,8 +30,22 @@ main.container {
   @apply mt-40;
 }
 
+input, textarea, select {
+  outline: none;
+}
+
 .luminosity-effect {
   @apply absolute z-[-1] w-[320px] h-[400px] rounded-full;
 
   background: radial-gradient(circle, rgba(var(--color-secondary-rgb), 0.10) 25%, rgba(var(--color-secondary-rgb), 0) 75%);
+}
+
+@media only screen and (max-width: 640px) {
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 24px;
+    padding-right: 24px;
+    max-width: 100%;
+  }
 }

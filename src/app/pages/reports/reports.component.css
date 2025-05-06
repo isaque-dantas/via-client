@@ -13,3 +13,48 @@ tbody > tr {
 tbody > tr:hover {
   background-color: rgba(var(--color-secondary-rgb), 0.1);
 }
+
+.x-gradient {
+  position: relative;
+}
+
+.x-gradient:after,
+.x-gradient:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 16px;
+}
+
+.x-gradient:before {
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-secondary-rgb), 0.1),
+    rgba(var(--color-secondary-rgb), 0)
+  );
+}
+
+.x-gradient:after {
+  right: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-secondary-rgb), 0),
+    rgba(var(--color-secondary-rgb), 0.1)
+  );
+}
+
+@media only screen and (min-width: 64rem) {
+  .x-gradient.gradient-md:after,
+  .x-gradient.gradient-md:before {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 40rem) {
+  .x-gradient.gradient-sm:after,
+  .x-gradient.gradient-sm:before {
+    display: none;
+  }
+}

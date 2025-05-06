@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<main class="container flex flex-col gap-16 mb-40">
+<main class="container flex flex-col gap-16 mb-40 md:pl-20 lg:pl-40">
   <h1 class="text-primary font-semibold text-4xl">Leitor de Vogal - Tarefa 1</h1>
 
   <div class="flex flex-col gap-4">
@@ -14,7 +14,7 @@
       (click)="onSubmit()"
       type="button"
       [class]="
-        'cursor-pointer border-2 border-primary font-semibold text-primary hover:bg-primary hover:text-white ' +
+        'cursor-pointer outline-0 border-2 border-primary font-semibold text-primary hover:bg-primary hover:text-white ' +
         'transition-all px-4 py-1 rounded-md w-fit'">
       Enviar
     </button>
@@ -22,32 +22,39 @@
 
   @if (result) {
     <div class="flex flex-col">
-      <h3 class="text-primary font-semibold text-2xl mb-6">Resultados</h3>
-      <table class="table-cell border-collapse border-1 border-gray-300 rounded-md w-fit mb-4">
-        <thead>
-        <tr>
-          <th>string</th>
-          <th>vogal</th>
-          <th>tempoTotal</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>{{ result.string }}</td>
+      <h3 class="text-primary font-semibold text-2xl mb-6">Resultado</h3>
+      <div class="overflow-x-scroll max-w-full mb-4">
+        <table class="table-cell border-collapse border-1 border-gray-300 rounded-md w-fit">
+          <thead>
+          <tr>
+            <th>string</th>
+            <th>vogal</th>
+            <th>tempoTotal</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ result.string }}</td>
 
-          @if (result.vogal) {
-            <td>{{ result.vogal }}</td>
-          } @else {
-            <td>Não há uma vogal que atenda aos critérios.</td>
-          }
+            @if (result.vogal) {
+              <td>{{ result.vogal }}</td>
+            } @else {
+              <td>Não há uma vogal que atenda aos critérios.</td>
+            }
 
-          <td>{{ result.tempoTotal }}</td>
-        </tr>
-        </tbody>
-      </table>
+            <td>{{ result.tempoTotal }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
 
       <p class="border-1 border-gray-300 font-mono w-fit p-4 rounded-md">
-        {{ result | jsonPrinter }}
+        @for (pair of getKeyValueFromObject(result); track $index) {
+          <p>
+            <span class="font-medium">{{ pair.key }}: </span>
+            <span>"{{pair.value}}"</span>
+          </p>
+        }
       </p></div>
   } @else {
     <p class="italic">Informe a string que deseja e clique em "Enviar" para visualizar os dados processados.</p>

@@ -2,7 +2,7 @@
   <a routerLink="home"><img ngSrc="/logo.png" alt="" height="48" width="102" priority></a>
 
   <div class="flex gap-16">
-    <nav class="flex items-center">
+    <nav class="items-center hidden lg:flex">
       <ul class="flex gap-8">
         @for (item of navItems; track item.link) {
           <li>
@@ -19,7 +19,47 @@
       </ul>
     </nav>
 
-    <div class="flex gap-4 items-center">
+    @if (isSuspendedNavOpened) {
+      <nav id="suspended-nav"
+           class="xl:hidden absolute top-0 right-0 translate-y-[96px] bg-white/80 backdrop-blur-md rounded-md border-gray-300 border-1 p-4 mr-6 md:mr-0">
+        <ul class="flex flex-col items-end gap-4">
+          @for (item of navItems; track item.link) {
+            <li class="lg:hidden">
+              <a
+                [class]="'font-semibold text-primary hover:bg-primary hover:text-white ' +
+                       'transition-all px-2 py-1 rounded-md'"
+                [class.bg-primary]="item.isActive"
+                [class.text-white]="item.isActive"
+
+                routerLink="{{item.link}}"
+              >{{ item.label }}</a>
+            </li>
+          }
+          @for (item of actionButtons; track item.link) {
+            <li class="xl:hidden lg:mt-1" [class.mt-4]="$first">
+              <a routerLink="{{item.link}}"
+                 [class]="'px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold ' +
+                          'hover:bg-primary hover:text-white transition-all'">
+                {{ item.label }}
+              </a>
+            </li>
+          }
+          @if (this.userIsLogged) {
+            <li class="xl:hidden">
+              <button
+                (click)="authService.logout()"
+                type="button"
+                [class]="'px-4 py-1 rounded-md border-2 border-primary text-primary font-semibold cursor-pointer w-full ' +
+                               'hover:bg-primary hover:text-white transition-all flex items-center gap-2'">
+                <span>Sair</span><span class="material-symbols-outlined">logout</span>
+              </button>
+            </li>
+          }
+        </ul>
+      </nav>
+    }
+
+    <div class="gap-4 items-center hidden xl:flex">
       @for (item of actionButtons; track item.link) {
         <a routerLink="{{item.link}}"
            [class]="
@@ -38,6 +78,36 @@
         </button>
       }
     </div>
+    <button id="suspended-nav-toggle" (click)="onSuspendedNavButtonClick()" class="xl:hidden relative group outline-0">
+      <div
+        [class.ring-4]="isSuspendedNavOpened"
+        class="relative flex overflow-hidden items-center justify-center rounded-full w-[50px] h-[50px] transform transition-all bg-primary ring-0 ring-gray-300 hover:ring-8 ring-opacity-30 duration-200 shadow-md">
+        <div
+          class="flex flex-col justify-between w-[20px] h-[20px] transform transition-all duration-300 origin-center overflow-hidden">
+          <div
+            [class.translate-x-10]="isSuspendedNavOpened"
+            class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left"></div>
+          <div
+            [class.translate-x-10]="isSuspendedNavOpened"
+            class="bg-white h-[2px] w-7 rounded transform transition-all duration-300 delay-75"></div>
+          <div
+            [class.translate-x-10]="isSuspendedNavOpened"
+            class="bg-white h-[2px] w-7 transform transition-all duration-300 origin-left delay-150"></div>
+
+          <div
+            [class.translate-x-0]="isSuspendedNavOpened"
+            [class.w-12]="isSuspendedNavOpened"
+            class="absolute top-1/2 items-center justify-between transform transition-all duration-500 flex w-0">
+            <div
+              [class.rotate-45]="isSuspendedNavOpened"
+              class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 rotate-0 delay-300"></div>
+            <div
+              [class.-rotate-45]="isSuspendedNavOpened"
+              class="absolute bg-white h-[2px] w-5 transform transition-all duration-500 -rotate-0 delay-300"></div>
+          </div>
+        </div>
+      </div>
+    </button>
   </div>
 
 </header>

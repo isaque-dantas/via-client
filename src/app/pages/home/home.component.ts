@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {HeaderComponent} from "../../components/header/header.component";
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -14,5 +15,6 @@ import {HeaderComponent} from "../../components/header/header.component";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
+  authService = inject(AuthService)
 
 }

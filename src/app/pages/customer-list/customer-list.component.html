@@ -2,7 +2,7 @@
 <main class="container flex flex-col mb-40">
 
   <div>
-    <h3 class="text-primary font-medium text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
+    <h3 class="text-primary text-3xl font-semibold mb-6">{{ this.formTitle }}</h3>
     <app-customer-form
       (newCustomerAdded)="addNew($event)"
       (customerEdited)="edit($event)"
@@ -16,19 +16,18 @@
     @if (customers.length == 0) {
       <p>Não há clientes registrados.</p>
     } @else {
-      <ul class="grid gap-6 grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
+      <ul class="grid gap-6 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
         @for (customer of customers; track customer.id) {
-          <li class="border-2 border-primary p-4 flex rounded-md justify-between">
-            <div class="flex flex-col">
+          <li class="border-2 border-primary p-4 flex rounded-md justify-between overflow-x-hidden">
+            <div class="flex flex-col shrink-1 pr-2 min-w-0">
               <h5 class="text-xl font-medium">{{ customer.name }}</h5>
 
-              <div class="flex gap-2 items-center">
-                <span class="text-sm">E-mail</span>
-                <span class="border-1 border-l border-primary"></span>
-                <span class="font-medium">{{ customer.email }}</span>
+              <div class="flex flex-col mt-2 w-full items-start overflow-hidden">
+                <p class="text-sm w-fit">E-mail</p>
+                <p class="font-medium text-ellipsis overflow-hidden whitespace-nowrap w-full">{{ customer.email }}</p>
               </div>
             </div>
-            <div class="flex flex-col gap-2 pl-2 items-center">
+            <div class="flex flex-col gap-2 items-center shrink-0">
               <a routerLink="/cliente/{{customer.id}}"
                  class="material-symbols-outlined text-[20px]! cursor-pointer">open_in_new</a>
               <button type="button" (click)="setEditModeToId(customer.id)"

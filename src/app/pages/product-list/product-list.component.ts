@@ -6,6 +6,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {AlertService} from '../../services/alert.service';
 import {HeaderComponent} from '../../components/header/header.component';
 import {RouterLink} from '@angular/router';
+import {DecimalWithTwoDigitsPipe} from '../../pipes/decimal-with-two-digits.pipe';
 
 @Component({
   selector: 'app-product-list',
@@ -13,6 +14,7 @@ import {RouterLink} from '@angular/router';
     ProductFormComponent,
     HeaderComponent,
     RouterLink,
+    DecimalWithTwoDigitsPipe,
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
