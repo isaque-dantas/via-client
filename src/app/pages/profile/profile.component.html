@@ -3,10 +3,10 @@
   @if (employee) {
     <h1 class="text-primary font-semibold text-4xl leading-none mb-6">{{ employee.name }}</h1>
 
-    <div class="flex gap-2 items-center mb-10">
+    <div class="flex flex-col md:flex-row md:gap-2 md:items-center mb-10">
       <p>E-mail</p>
-      <p class="border-primary border-1"></p>
-      <p class="font-medium text-xl">{{ employee.email }}</p>
+      <p class="border-primary border-1 hidden md:block"></p>
+      <p class="font-medium text-lg md:text-xl max-w-full overflow-hidden text-ellipsis">{{ employee.email }}</p>
     </div>
 
     @if (orders$ | async; as orders) {
@@ -15,7 +15,7 @@
 
         <ul class="grid gap-6 grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
           @for (order of orders; track order.id) {
-            <li class="border-2 border-primary p-4 flex rounded-md justify-between">
+            <li class="border-2 border-primary p-4 flex rounded-md justify-between col-span-4 md:col-span-2 lg:col-span-1">
               <div class="flex flex-col">
                 <div class="flex gap-2 items-center">
                   <span class="text-sm">Cliente</span>

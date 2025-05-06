@@ -30,7 +30,7 @@
 
         <ul class="grid gap-6 grid-cols-4 grid-flow-row max-w-full overflow-x-auto items-start">
           @for (order of orders; track order.id) {
-            <li class="border-2 border-primary p-4 flex rounded-md justify-between">
+            <li class="border-2 border-primary p-4 flex rounded-md justify-between col-span-4 md:col-span-2 lg:col-span-1">
               <div class="flex flex-col">
                 <div class="flex gap-2 items-center">
                   <span class="text-sm">Cliente</span>

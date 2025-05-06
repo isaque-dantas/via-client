@@ -1,5 +1,5 @@
 <app-header></app-header>
-<main class="container mt-[184px]! flex flex-col items-center gap-[144px] mb-8 md:mb-40 md:overflow-x-visible">
+<main class="container mt-[184px]! flex flex-col items-center gap-20 md:gap-[144px] mb-8 md:mb-40 md:overflow-x-visible">
   <div class="mx-auto w-fit relative flex flex-col items-center">
     <h1
       class="text-primary px-2 py-4 font-bold text-5xl text-center leading-tight bg-white/50 backdrop-blur-xs max-w-[720px]">
@@ -8,12 +8,12 @@
     </h1>
     @if (!authService.isAuthenticated()) {
 
-      <div class="flex gap-8 mt-20">
+      <div class="flex gap-4 md:gap-8 mt-24">
         <a routerLink="/login"
-           class="text-xl leading-none cursor-pointer px-8 py-2 border-primary border-2 rounded-md text-primary font-semibold">Login</a>
+           class="text-lg md:text-xl leading-none cursor-pointer px-8 py-2 border-primary border-2 rounded-md text-primary font-semibold flex items-center"><span>Login</span></a>
         <a routerLink="/fazer-cadastro"
-           class="text-xl leading-none cursor-pointer px-8 py-2 bg-primary rounded-md text-white font-bold">Fazer
-          cadastro</a>
+           class="text-lg md:text-xl leading-none cursor-pointer px-8 py-2 bg-primary rounded-md text-white font-bold flex items-center"><span>Fazer
+          cadastro</span></a>
       </div>
 
     }
@@ -22,15 +22,6 @@
       ngSrc="/stonks.svg"
       alt=""
       class="absolute invisible md:visible top-0 left-0 -translate-y-1/12 z-[-1] scale-[120%]"
-      priority
-      height="232"
-      width="899">
-
-
-    <img
-      ngSrc="/stonks-xs.svg"
-      alt=""
-      class="absolute visible md:invisible rotate-[5deg] top-1/2 left-1/2 -translate-x-1/2 -translate-y-[45%] z-[-1] max-w-[320px]"
       priority
       height="232"
       width="899">
@@ -64,7 +55,8 @@
     <h3 class="text-primary px-2 py-4 font-bold text-3xl leading-tight">Sobre o autor</h3>
     <div class="grid grid-cols-4 gap-6 items-center">
       <figure class="col-span-4 justify-self-center md:col-span-1 flex px-8 md:px-0">
-        <img ngSrc="/isq.jpg" alt="" width="765" height="765" class="rounded-full shadow-xl self-center w-[320px] max-w-full" priority>
+        <img ngSrc="/isq.jpg" alt="" width="765" height="765"
+             class="rounded-full shadow-xl self-center w-[320px] max-w-full" priority>
       </figure>
       <div class="flex flex-col gap-4 col-span-4 md:col-span-3">
         <h5 class="text-primary text-2xl leading-tight font-semibold">Isaque Dantas</h5>
@@ -74,19 +66,22 @@
       </div>
     </div>
     <ul class="flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
-      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank" href="https://github.com/isaque-dantas">
+      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank"
+         href="https://github.com/isaque-dantas">
         <li class="flex gap-2 items-center">
           <img ngSrc="/github.png" alt="" width="30" height="32">
           <span class="font-medium">{{ '@isaque-dantas' }}</span>
         </li>
       </a>
-      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank" href="https://linkedin.com/in/isaque-victor-404852316">
+      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank"
+         href="https://linkedin.com/in/isaque-victor-404852316">
         <li class="flex gap-2 items-center">
           <img ngSrc="/linkedin.png" alt="" width="512" height="512" class="max-w-[32px]">
           <span class="font-medium">Isaque Victor</span>
         </li>
       </a>
-      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank" href="mailto:{{'vicisaque413@gmail.com'}}">
+      <a class="h-fit border-1 border-primary rounded-md p-2 max-w-[248px] md:border-none" target="_blank"
+         href="mailto:{{'vicisaque413@gmail.com'}}">
         <li class="flex gap-2 items-center">
           <span class="material-symbols-outlined text-3xl!">email</span>
           <span class="font-medium">{{ 'vicisaque413@gmail.com' }}</span>

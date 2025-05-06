@@ -1,8 +1,8 @@
 <app-header></app-header>
 <main class="container mb-40 flex flex-col gap-8">
   @if (order) {
-    <div class="flex gap-6 items-center">
-      <h1 class="text-primary font-semibold text-4xl leading-none">Pedido #{{ order.id }}</h1>
+    <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-start md:items-center">
+      <h1 class="text-primary font-semibold text-4xl leading-none mb-4 md:mb-0">Pedido #{{ order.id }}</h1>
 
       <select
         [value]="order.status"
@@ -21,27 +21,27 @@
 
     <div class="flex flex-col gap-4">
       <div class="flex gap-2 items-center">
-        <p>Cliente</p>
+        <p class="text-sm md:text-md">Cliente</p>
         <p class="border-primary border-1"></p>
         <a routerLink="/cliente/{{order.customer.id}}"
-           class="font-medium text-xl underline underline-offset-2">{{ order.customer.name }}</a>
+           class="font-medium text-lg md:text-xl underline underline-offset-2">{{ order.customer.name }}</a>
       </div>
       <div class="flex gap-2 items-center">
-        <p>Data</p>
+        <p class="text-sm md:text-md">Data</p>
         <p class="border-primary border-1"></p>
-        <p class="font-medium text-xl">{{ order.date | localDate }}</p>
+        <p class="font-medium text-lg md:text-xl">{{ order.date | localDate }}</p>
       </div>
       <div class="flex gap-2 items-center">
-        <p>Custo total</p>
+        <p class="text-sm md:text-md">Custo total</p>
         <p class="border-primary border-1"></p>
-        <p class="font-medium text-xl">R${{ order.total_cost | decimalWithTwoDigits }}</p>
+        <p class="font-medium text-lg md:text-xl">R${{ order.total_cost | decimalWithTwoDigits }}</p>
       </div>
 
       @if (order.description) {
         <div class="flex gap-2 items-center">
-          <p>Descrição</p>
+          <p class="text-sm md:text-md">Descrição</p>
           <p class="border-primary border-1"></p>
-          <p class="font-medium text-xl">{{ order.description }}</p>
+          <p class="font-medium text-lg md:text-xl">{{ order.description }}</p>
         </div>
       }
     </div>
@@ -50,7 +50,7 @@
       <h3 class="text-primary font-semibold text-2xl leading-none mb-6">Produtos</h3>
       <ul class="grid grid-cols-4 gap-8">
         @for (product of order.products; track product.id) {
-          <li class="border-2 border-primary rounded-md p-4">
+          <li class="border-2 border-primary rounded-md p-4 col-span-4 md:col-span-2 lg:col-span-1">
             <a routerLink="/produto/{{ product.id }}" class="flex flex-col gap-2">
               <div class="flex gap-4 items-center">
                 <h5 class="font-medium text-xl">{{ product.name }}</h5>
